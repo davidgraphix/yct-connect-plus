@@ -1,9 +1,39 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { Users, GraduationCap, FileText, Bell, TrendingUp, AlertCircle } from "lucide-react"
+import {
+  Users,
+  GraduationCap,
+  FileText,
+  Bell,
+  TrendingUp,
+  AlertCircle,
+  Building2,
+  UserPlus,
+  Megaphone,
+} from "lucide-react"
 
 export default function AdminDashboard() {
+  const departmentStats = [
+    { name: "Computer Science", students: 450, color: "bg-blue-500" },
+    { name: "Engineering", students: 380, color: "bg-green-500" },
+    { name: "Business Admin", students: 320, color: "bg-purple-500" },
+    { name: "Mass Communication", students: 290, color: "bg-orange-500" },
+  ]
+
+  const recentActivities = [
+    { action: "Lecturer John uploaded material", time: "5 mins ago", type: "upload" },
+    { action: "New student registered", time: "12 mins ago", type: "user" },
+    { action: "Admin posted announcement", time: "1 hour ago", type: "announcement" },
+    { action: "Material approved by admin", time: "2 hours ago", type: "approval" },
+    { action: "Lecturer Sarah created class", time: "3 hours ago", type: "class" },
+    { action: "Student downloaded material", time: "4 hours ago", type: "download" },
+    { action: "New lecturer registered", time: "5 hours ago", type: "user" },
+    { action: "Department updated", time: "6 hours ago", type: "department" },
+    { action: "Announcement sent to students", time: "7 hours ago", type: "announcement" },
+    { action: "User profile updated", time: "8 hours ago", type: "user" },
+  ]
+
   return (
     <div className="space-y-6">
       {/* Welcome Section */}
@@ -14,7 +44,7 @@ export default function AdminDashboard() {
 
       {/* Quick Stats */}
       <div className="grid gap-4 md:grid-cols-4">
-        <Card className="border-none shadow-md hover:shadow-lg transition-shadow">
+        <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Students</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
@@ -59,6 +89,53 @@ export default function AdminDashboard() {
         </Card>
       </div>
 
+      <div className="grid gap-6 md:grid-cols-2">
+        {/* Department Stats */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Building2 className="h-5 w-5" />
+              Department Stats
+            </CardTitle>
+            <CardDescription>Number of students per department</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {departmentStats.map((dept, index) => (
+              <div key={index} className="space-y-2">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="font-medium">{dept.name}</span>
+                  <span className="text-muted-foreground">{dept.students} students</span>
+                </div>
+                <div className="h-2 bg-muted rounded-full overflow-hidden">
+                  <div className={`h-full ${dept.color}`} style={{ width: `${(dept.students / 450) * 100}%` }} />
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Recent Activities Feed */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Recent Activities</CardTitle>
+            <CardDescription>Last 10 user actions</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3 max-h-[300px] overflow-y-auto">
+              {recentActivities.map((activity, index) => (
+                <div key={index} className="flex items-start gap-3 text-sm">
+                  <div className="h-2 w-2 rounded-full bg-blue-500 mt-1.5 flex-shrink-0" />
+                  <div className="flex-1">
+                    <p className="font-medium">{activity.action}</p>
+                    <p className="text-xs text-muted-foreground">{activity.time}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
       {/* Pending Approvals */}
       <Card className="border-orange-600 bg-orange-50 dark:bg-orange-950/20">
         <CardHeader>
@@ -85,65 +162,93 @@ export default function AdminDashboard() {
         </CardContent>
       </Card>
 
-      {/* Quick Actions */}
       <div>
-        <h2 className="text-xl font-semibold mb-4">Management Tools</h2>
+        <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
         <div className="grid gap-4 md:grid-cols-3">
           <Card className="hover:shadow-lg transition-shadow cursor-pointer">
             <CardHeader>
-              <Users className="h-8 w-8 text-blue-600 mb-2" />
-              <CardTitle className="text-base">User Management</CardTitle>
-              <CardDescription>Manage students and lecturers</CardDescription>
+              <Building2 className="h-8 w-8 text-blue-600 mb-2" />
+              <CardTitle className="text-base">Add New Department</CardTitle>
+              <CardDescription>Create a new department</CardDescription>
             </CardHeader>
             <CardContent>
               <Button className="w-full bg-blue-600 hover:bg-blue-700" asChild>
-                <Link href="/admin/users">Manage Users</Link>
+                <Link href="/admin/departments">Add Department</Link>
               </Button>
             </CardContent>
           </Card>
 
           <Card className="hover:shadow-lg transition-shadow cursor-pointer">
             <CardHeader>
-              <GraduationCap className="h-8 w-8 text-purple-600 mb-2" />
-              <CardTitle className="text-base">Departments</CardTitle>
-              <CardDescription>Manage departments and courses</CardDescription>
+              <Megaphone className="h-8 w-8 text-purple-600 mb-2" />
+              <CardTitle className="text-base">Create Announcement</CardTitle>
+              <CardDescription>Post updates to users</CardDescription>
             </CardHeader>
             <CardContent>
               <Button className="w-full bg-purple-600 hover:bg-purple-700" asChild>
-                <Link href="/admin/departments">View Departments</Link>
+                <Link href="/admin/announcements">Create Post</Link>
               </Button>
             </CardContent>
           </Card>
 
           <Card className="hover:shadow-lg transition-shadow cursor-pointer">
             <CardHeader>
-              <TrendingUp className="h-8 w-8 text-green-600 mb-2" />
-              <CardTitle className="text-base">Analytics</CardTitle>
-              <CardDescription>View platform statistics</CardDescription>
+              <UserPlus className="h-8 w-8 text-green-600 mb-2" />
+              <CardTitle className="text-base">Manage Users</CardTitle>
+              <CardDescription>Add or edit user accounts</CardDescription>
             </CardHeader>
             <CardContent>
-              <Button variant="outline" className="w-full bg-transparent" asChild>
-                <Link href="/admin/analytics">View Reports</Link>
+              <Button className="w-full bg-green-600 hover:bg-green-700" asChild>
+                <Link href="/admin/users">Manage Users</Link>
               </Button>
             </CardContent>
           </Card>
         </div>
       </div>
 
-      {/* Weekly Activity Chart Placeholder */}
+      {/* Management Tools */}
       <div>
-        <h2 className="text-xl font-semibold mb-4">Weekly Active Users</h2>
-        <Card>
-          <CardHeader>
-            <CardTitle>User Activity Trend</CardTitle>
-            <CardDescription>Active users over the past 7 days</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-64 flex items-center justify-center bg-muted/30 rounded-lg">
-              <p className="text-muted-foreground">Chart visualization will be implemented with Recharts</p>
-            </div>
-          </CardContent>
-        </Card>
+        <h2 className="text-xl font-semibold mb-4">Management Tools</h2>
+        <div className="grid gap-4 md:grid-cols-3">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+            <CardHeader>
+              <FileText className="h-8 w-8 text-cyan-600 mb-2" />
+              <CardTitle className="text-base">Materials Management</CardTitle>
+              <CardDescription>Review and approve uploads</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button variant="outline" className="w-full bg-transparent" asChild>
+                <Link href="/admin/materials">View Materials</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+            <CardHeader>
+              <TrendingUp className="h-8 w-8 text-pink-600 mb-2" />
+              <CardTitle className="text-base">Reports & Analytics</CardTitle>
+              <CardDescription>View platform statistics</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button variant="outline" className="w-full bg-transparent" asChild>
+                <Link href="/admin/reports">View Reports</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+            <CardHeader>
+              <AlertCircle className="h-8 w-8 text-slate-600 mb-2" />
+              <CardTitle className="text-base">System Settings</CardTitle>
+              <CardDescription>Configure platform settings</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button variant="outline" className="w-full bg-transparent" asChild>
+                <Link href="/admin/settings">Open Settings</Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   )
