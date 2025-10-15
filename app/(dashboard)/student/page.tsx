@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { BookOpen, Calendar, Bell, Download, Eye } from "lucide-react"
+import { BookOpen, Calendar, Bell, Download, Eye, CheckCircle } from "lucide-react"
 
 export default function StudentDashboard() {
   return (
@@ -13,7 +13,7 @@ export default function StudentDashboard() {
       </div>
 
       {/* Quick Stats */}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Materials</CardTitle>
@@ -33,6 +33,17 @@ export default function StudentDashboard() {
           <CardContent>
             <div className="text-2xl font-bold">8</div>
             <p className="text-xs text-muted-foreground">This week</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Classes Attended</CardTitle>
+            <CheckCircle className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">3/5</div>
+            <p className="text-xs text-muted-foreground">Today • 12/15 this week</p>
           </CardContent>
         </Card>
 
