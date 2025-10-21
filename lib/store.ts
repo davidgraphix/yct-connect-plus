@@ -107,6 +107,19 @@ export interface AppStore {
   setPlatformName: (name: string) => void
   logoUrl?: string
   setLogoUrl: (url: string) => void
+
+  getAnnouncementsForRole: (role: "student" | "lecturer" | "admin") => Announcement[]
+  getMaterialsForRole: (role: "student" | "lecturer" | "admin") => Material[]
+  getClassesForRole: (role: "student" | "lecturer" | "admin") => Class[]
+
+  lastUpdated: {
+    announcements: number
+    materials: number
+    departments: number
+    classes: number
+    users: number
+  }
+  updateLastModified: (entity: keyof AppStore["lastUpdated"]) => void
 }
 
 // Mock initial data
@@ -217,42 +230,80 @@ const mockUsers: User[] = [
 
 export const useAppStore = create<AppStore>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       // User
       currentUser: null,
       setCurrentUser: (user) => set({ currentUser: user }),
 
       // Materials
       materials: mockMaterials,
-      addMaterial: (material) => set((state) => ({ materials: [...state.materials, material] })),
+      addMaterial: (material) =>
+        set((state) => {
+          const updated = [...state.materials, material]
+          return {
+            materials: updated as Material[],
+            lastUpdated: { ...state.lastUpdated, materials: Date.now() },
+          }
+        }),
       updateMaterial: (id, updates) =>
-        set((state) => ({
-          materials: state.materials.map((m) => (m.id === id ? { ...m, ...updates } : m)),
-        })),
+        set((state) => {
+          const updated = state.materials.map((m) => (m.id === id ? { ...m, ...updates } : m))
+          return {
+            materials: updated as Material[],
+            lastUpdated: { ...state.lastUpdated, materials: Date.now() },
+          }
+        }),
       deleteMaterial: (id) =>
-        set((state) => ({
-          materials: state.materials.filter((m) => m.id !== id),
-        })),
+        set((state) => {
+          const updated = state.materials.filter((m) => m.id !== id)
+          return {
+            materials: updated as Material[],
+            lastUpdated: { ...state.lastUpdated, materials: Date.now() },
+          }
+        }),
       approveMaterial: (id) =>
-        set((state) => ({
-          materials: state.materials.map((m) => (m.id === id ? { ...m, status: "approved" } : m)),
-        })),
+        set((state) => {
+          const updated = state.materials.map((m) => (m.id === id ? { ...m, status: "approved" } : m))
+          return {
+            materials: updated as Material[],
+            lastUpdated: { ...state.lastUpdated, materials: Date.now() },
+          }
+        }),
       rejectMaterial: (id) =>
-        set((state) => ({
-          materials: state.materials.map((m) => (m.id === id ? { ...m, status: "rejected" } : m)),
-        })),
+        set((state) => {
+          const updated = state.materials.map((m) => (m.id === id ? { ...m, status: "rejected" } : m))
+          return {
+            materials: updated as Material[],
+            lastUpdated: { ...state.lastUpdated, materials: Date.now() },
+          }
+        }),
 
       // Announcements
       announcements: mockAnnouncements,
-      addAnnouncement: (announcement) => set((state) => ({ announcements: [...state.announcements, announcement] })),
+      addAnnouncement: (announcement) =>
+        set((state) => {
+          const updated = [...state.announcements, announcement]
+          return {
+            announcements: updated,
+            lastUpdated: { ...state.lastUpdated, announcements: Date.now() },
+          }
+        }),
       updateAnnouncement: (id, updates) =>
-        set((state) => ({
-          announcements: state.announcements.map((a) => (a.id === id ? { ...a, ...updates } : a)),
-        })),
+        set((state) => {
+          const updated = state.announcements.map((a) => (a.id === id ? { ...a, ...updates } : a))
+          return {
+            announcements: updated,
+            lastUpdated: { ...state.lastUpdated, announcements: Date.now() },
+          }
+        }),
       deleteAnnouncement: (id) =>
-        set((state) => ({
-          announcements: state.announcements.filter((a) => a.id !== id),
-        })),
+        set((state) => {
+          const updated = state.announcements.filter((a) => a.id !== id)
+          return {
+            announcements: updated,
+            lastUpdated: { ...state.lastUpdated, announcements: Date.now() },
+          }
+        }),
 
       // Departments
       departments: mockDepartments,
@@ -299,6 +350,70 @@ export const useAppStore = create<AppStore>()(
       setPlatformName: (name) => set({ platformName: name }),
       logoUrl: undefined,
       setLogoUrl: (url) => set({ logoUrl: url }),
+
+      getAnnouncementsForRole: (role) => {
+        const announcements = get().announcements
+        const currentUser = get().currentUser
+
+        if (role === "admin") {
+          // Admins see all announcements
+          return announcements
+        } else if (role === "lecturer") {
+          // Lecturers see their own announcements and admin announcements
+          return announcements.filter((a) => a.authorRole === "admin" || a.author === currentUser?.name)
+        } else {
+          // Students see published announcements from lecturers and admins
+          return announcements.filter((a) => a.status === "published")
+        }
+      },
+
+      getMaterialsForRole: (role) => {
+        const materials = get().materials
+        const currentUser = get().currentUser
+
+        if (role === "admin") {
+          // Admins see all materials
+          return materials
+        } else if (role === "lecturer") {
+          // Lecturers see their own materials and approved materials
+          return materials.filter((m) => m.lecturer === currentUser?.name || m.status === "approved")
+        } else {
+          // Students see only approved materials
+          return materials.filter((m) => m.status === "approved")
+        }
+      },
+
+      getClassesForRole: (role) => {
+        const classes = get().classes
+        const currentUser = get().currentUser
+
+        if (role === "admin") {
+          // Admins see all classes
+          return classes
+        } else if (role === "lecturer") {
+          // Lecturers see their own classes
+          return classes.filter((c) => c.lecturer === currentUser?.name)
+        } else {
+          // Students see classes in their level
+          return classes.filter((c) => c.level === currentUser?.level)
+        }
+      },
+
+      lastUpdated: {
+        announcements: Date.now(),
+        materials: Date.now(),
+        departments: Date.now(),
+        classes: Date.now(),
+        users: Date.now(),
+      },
+
+      updateLastModified: (entity) =>
+        set((state) => ({
+          lastUpdated: {
+            ...state.lastUpdated,
+            [entity]: Date.now(),
+          },
+        })),
     }),
     {
       name: "yct-connect-store",
