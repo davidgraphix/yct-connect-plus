@@ -20,7 +20,7 @@ export default function LecturerSettingsPage() {
     department: "Computer Science",
     staffId: "LEC-2023-001",
   })
-  const [themeMode, setThemeMode] = useState(theme || "light")
+  const [themeMode, setThemeMode] = useState<"light" | "dark">(theme || "light")
   const [photoUrl, setPhotoUrl] = useState<string | null>(null)
 
   const tabs = [
@@ -226,7 +226,7 @@ export default function LecturerSettingsPage() {
                   <label className="text-sm font-medium">Theme Mode</label>
                   <select
                     value={themeMode}
-                    onChange={(e) => setThemeMode(e.target.value)}
+                    onChange={(e) => setThemeMode(e.target.value as "light" | "dark")}
                     className="w-full px-4 py-2 border rounded-lg bg-background text-sm"
                   >
                     <option value="light">Light</option>
