@@ -33,7 +33,7 @@ const sidebarConfig = {
     { href: "/admin/departments", label: "Departments", icon: "🏛️" },
     { href: "/admin/materials", label: "Materials", icon: "📚" },
     { href: "/admin/announcements", label: "Announcements", icon: "📢" },
-    { href: "/admin/analytics", label: "Reports", icon: "📊" },
+    { href: "/admin/reports", label: "Reports", icon: "📊" },
     { href: "/admin/settings", label: "Settings", icon: "⚙️" },
   ],
 }
@@ -43,7 +43,7 @@ export function Sidebar({ role, userName }: SidebarProps) {
   const navItems = sidebarConfig[role]
 
   return (
-    <div className="flex h-screen w-64 flex-col border-r border-border bg-card">
+    <div className="hidden md:flex h-screen w-64 flex-col border-r border-border bg-card">
       {/* Logo */}
       <div className="flex h-16 items-center gap-2 border-b border-border px-6">
         <GraduationCap className="h-8 w-8 text-blue-600" />

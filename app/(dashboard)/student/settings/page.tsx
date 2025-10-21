@@ -8,6 +8,42 @@ import { useState } from "react"
 
 export default function StudentSettingsPage() {
   const [activeTab, setActiveTab] = useState("profile")
+  const [profileData, setProfileData] = useState({
+    fullName: "David Okafor",
+    email: "david@yabatech.edu.ng",
+    matricNumber: "YCT/ND2/CS/2023/001",
+    department: "Computer Science",
+    level: "ND2",
+  })
+  const [theme, setTheme] = useState("system")
+  const [notifications, setNotifications] = useState({
+    announcements: true,
+    classReminders: true,
+    newMaterials: true,
+    emailNotifications: false,
+    pushNotifications: true,
+  })
+
+  const handleProfileChange = (field: string, value: string) => {
+    setProfileData((prev) => ({ ...prev, [field]: value }))
+  }
+
+  const handleSaveProfile = () => {
+    alert("Profile updated successfully!")
+  }
+
+  const handleThemeChange = (newTheme: string) => {
+    setTheme(newTheme)
+    alert(`Theme changed to ${newTheme}`)
+  }
+
+  const handleNotificationChange = (key: string) => {
+    setNotifications((prev) => ({ ...prev, [key]: !prev[key] }))
+  }
+
+  const handleSaveNotifications = () => {
+    alert("Notification preferences saved!")
+  }
 
   const tabs = [
     { id: "profile", label: "Profile", icon: User },
@@ -19,8 +55,10 @@ export default function StudentSettingsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">Settings</h1>
-        <p className="text-muted-foreground">Personalize your experience and manage your account</p>
+        <h1 className="text-2xl md:text-3xl font-bold">Settings</h1>
+        <p className="text-muted-foreground text-sm md:text-base">
+          Personalize your experience and manage your account
+        </p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-[200px_1fr]">
@@ -55,34 +93,43 @@ export default function StudentSettingsPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center gap-4">
-                  <div className="h-20 w-20 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
+                  <div className="h-20 w-20 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center flex-shrink-0">
                     <User className="h-10 w-10 text-blue-600" />
                   </div>
                   <Button variant="outline">Change Photo</Button>
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Full Name</label>
-                  <Input defaultValue="David Okafor" />
+                  <Input
+                    value={profileData.fullName}
+                    onChange={(e) => handleProfileChange("fullName", e.target.value)}
+                  />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Email</label>
-                  <Input type="email" defaultValue="david@yabatech.edu.ng" />
+                  <Input
+                    type="email"
+                    value={profileData.email}
+                    onChange={(e) => handleProfileChange("email", e.target.value)}
+                  />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Matric Number</label>
-                  <Input defaultValue="YCT/ND2/CS/2023/001" disabled />
+                  <Input value={profileData.matricNumber} disabled />
                 </div>
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Department</label>
-                    <Input defaultValue="Computer Science" disabled />
+                    <Input value={profileData.department} disabled />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Level</label>
-                    <Input defaultValue="ND2" disabled />
+                    <Input value={profileData.level} disabled />
                   </div>
                 </div>
-                <Button className="bg-blue-600 hover:bg-blue-700">Save Changes</Button>
+                <Button className="bg-blue-600 hover:bg-blue-700 w-full md:w-auto" onClick={handleSaveProfile}>
+                  Save Changes
+                </Button>
               </CardContent>
             </Card>
           )}
@@ -120,7 +167,7 @@ export default function StudentSettingsPage() {
                     <p>Previous login: Yesterday at 2:15 PM from Mobile</p>
                   </div>
                 </div>
-                <Button className="bg-blue-600 hover:bg-blue-700">Update Password</Button>
+                <Button className="bg-blue-600 hover:bg-blue-700 w-full md:w-auto">Update Password</Button>
               </CardContent>
             </Card>
           )}
@@ -137,37 +184,64 @@ export default function StudentSettingsPage() {
                     <p className="font-medium">Announcements</p>
                     <p className="text-sm text-muted-foreground">Get notified about new announcements</p>
                   </div>
-                  <input type="checkbox" className="h-5 w-5" defaultChecked />
+                  <input
+                    type="checkbox"
+                    className="h-5 w-5"
+                    checked={notifications.announcements}
+                    onChange={() => handleNotificationChange("announcements")}
+                  />
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-medium">Class Reminders</p>
                     <p className="text-sm text-muted-foreground">Receive reminders before classes</p>
                   </div>
-                  <input type="checkbox" className="h-5 w-5" defaultChecked />
+                  <input
+                    type="checkbox"
+                    className="h-5 w-5"
+                    checked={notifications.classReminders}
+                    onChange={() => handleNotificationChange("classReminders")}
+                  />
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-medium">New Materials</p>
                     <p className="text-sm text-muted-foreground">Alert when new materials are uploaded</p>
                   </div>
-                  <input type="checkbox" className="h-5 w-5" defaultChecked />
+                  <input
+                    type="checkbox"
+                    className="h-5 w-5"
+                    checked={notifications.newMaterials}
+                    onChange={() => handleNotificationChange("newMaterials")}
+                  />
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-medium">Email Notifications</p>
                     <p className="text-sm text-muted-foreground">Receive updates via email</p>
                   </div>
-                  <input type="checkbox" className="h-5 w-5" />
+                  <input
+                    type="checkbox"
+                    className="h-5 w-5"
+                    checked={notifications.emailNotifications}
+                    onChange={() => handleNotificationChange("emailNotifications")}
+                  />
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-medium">Push Notifications</p>
                     <p className="text-sm text-muted-foreground">Browser push notifications</p>
                   </div>
-                  <input type="checkbox" className="h-5 w-5" defaultChecked />
+                  <input
+                    type="checkbox"
+                    className="h-5 w-5"
+                    checked={notifications.pushNotifications}
+                    onChange={() => handleNotificationChange("pushNotifications")}
+                  />
                 </div>
-                <Button className="bg-blue-600 hover:bg-blue-700">Save Preferences</Button>
+                <Button className="bg-blue-600 hover:bg-blue-700 w-full md:w-auto" onClick={handleSaveNotifications}>
+                  Save Preferences
+                </Button>
               </CardContent>
             </Card>
           )}
@@ -181,19 +255,23 @@ export default function StudentSettingsPage() {
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Theme Mode</label>
-                  <select className="w-full px-4 py-2 border rounded-lg bg-background">
-                    <option>Light</option>
-                    <option>Dark</option>
-                    <option>System</option>
+                  <select
+                    className="w-full px-4 py-2 border rounded-lg bg-background"
+                    value={theme}
+                    onChange={(e) => handleThemeChange(e.target.value)}
+                  >
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="system">System</option>
                   </select>
                 </div>
                 <div className="p-4 bg-muted/50 rounded-lg">
                   <p className="text-sm font-medium mb-2">Preview</p>
                   <div className="h-32 bg-background border rounded-lg flex items-center justify-center">
-                    <p className="text-muted-foreground">Theme preview</p>
+                    <p className="text-muted-foreground">Theme preview ({theme})</p>
                   </div>
                 </div>
-                <Button className="bg-blue-600 hover:bg-blue-700">Apply Theme</Button>
+                <Button className="bg-blue-600 hover:bg-blue-700 w-full md:w-auto">Apply Theme</Button>
               </CardContent>
             </Card>
           )}

@@ -74,7 +74,11 @@ export default function LecturerAnnouncementsPage() {
 
     setAnnouncements([newAnnouncement, ...announcements])
 
-    // Reset form
+    const toastContainer = document.createElement("div")
+    toastContainer.innerHTML = `<div class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg">Announcement posted successfully!</div>`
+    document.body.appendChild(toastContainer)
+    setTimeout(() => toastContainer.remove(), 3000)
+
     setFormData({
       title: "",
       message: "",

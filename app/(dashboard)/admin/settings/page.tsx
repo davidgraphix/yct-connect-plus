@@ -1,13 +1,23 @@
 "use client"
 
+import type React from "react"
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Settings, Bell, Shield, Database, Key } from "lucide-react"
 import { useState } from "react"
+import { useAppStore } from "@/lib/store"
+import { useToast, ToastContainer } from "@/components/ui/toast"
 
 export default function AdminSettingsPage() {
+  const { platformName, setPlatformName, logoUrl, setLogoUrl, theme, setTheme } = useAppStore()
+  const { toasts, addToast, removeToast } = useToast()
   const [activeTab, setActiveTab] = useState("general")
+  const [formData, setFormData] = useState({
+    platformName,
+    theme: theme || "light",
+  })
 
   const tabs = [
     { id: "general", label: "General", icon: Settings },
@@ -17,8 +27,35 @@ export default function AdminSettingsPage() {
     { id: "backup", label: "Backup", icon: Database },
   ]
 
+  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = (event) => {
+        const result = event.target?.result as string
+        setLogoUrl(result)
+        addToast({
+          title: "Logo Uploaded",
+          description: "The logo has been uploaded successfully.",
+          type: "success",
+        })
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  const handleSaveChanges = () => {
+    setPlatformName(formData.platformName)
+    setTheme(formData.theme === "light" || formData.theme === "dark" ? formData.theme : "light")
+    addToast({
+      title: "Settings Saved",
+      description: "Your settings have been saved successfully.",
+      type: "success",
+    })
+  }
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-4 md:p-6">
       <div>
         <h1 className="text-3xl font-bold">System Settings</h1>
         <p className="text-muted-foreground">Configure global platform settings and preferences</p>
@@ -56,27 +93,50 @@ export default function AdminSettingsPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Platform Name</label>
-                  <Input defaultValue="YCT Connect+" />
+                  <label className="text-sm font-medium">Left Shoulder Name</label>
+                  <Input
+                    value={formData.platformName}
+                    onChange={(e) => setFormData({ ...formData, platformName: e.target.value })}
+                  />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Platform Logo</label>
                   <div className="flex items-center gap-4">
-                    <div className="h-16 w-16 rounded-lg bg-muted flex items-center justify-center">
-                      <Settings className="h-8 w-8 text-muted-foreground" />
+                    <div className="h-16 w-16 rounded-lg bg-muted flex items-center justify-center overflow-hidden">
+                      {logoUrl ? (
+                        <img src={logoUrl || "/placeholder.svg"} alt="Logo" className="h-full w-full object-cover" />
+                      ) : (
+                        <Settings className="h-8 w-8 text-muted-foreground" />
+                      )}
                     </div>
-                    <Button variant="outline">Upload Logo</Button>
+                    <div>
+                      <input
+                        type="file"
+                        id="logo-upload"
+                        accept="image/*"
+                        onChange={handleLogoUpload}
+                        className="hidden"
+                      />
+                      <Button variant="outline" onClick={() => document.getElementById("logo-upload")?.click()}>
+                        Upload Logo
+                      </Button>
+                    </div>
                   </div>
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Theme</label>
-                  <select className="w-full px-4 py-2 border rounded-lg bg-background">
-                    <option>Light</option>
-                    <option>Dark</option>
-                    <option>System</option>
+                  <select
+                    value={formData.theme}
+                    onChange={(e) => setFormData({ ...formData, theme: e.target.value })}
+                    className="w-full px-4 py-2 border rounded-lg bg-background"
+                  >
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
                   </select>
                 </div>
-                <Button className="bg-blue-600 hover:bg-blue-700">Save Changes</Button>
+                <Button className="bg-blue-600 hover:bg-blue-700" onClick={handleSaveChanges}>
+                  Save Changes
+                </Button>
               </CardContent>
             </Card>
           )}
@@ -195,6 +255,8 @@ export default function AdminSettingsPage() {
           )}
         </div>
       </div>
+
+      <ToastContainer toasts={toasts} onRemove={removeToast} />
     </div>
   )
 }
