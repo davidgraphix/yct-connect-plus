@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import { Select } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
 import { Bell, Send, Edit, Trash2, Paperclip, Calendar, Users } from "lucide-react"
 
@@ -160,12 +159,16 @@ export default function LecturerAnnouncementsPage() {
             </div>
 
             {/* Target Audience */}
+            {/* Target Audience */}
             <div className="space-y-2">
               <Label htmlFor="target">Target Audience *</Label>
-              <Select
+              <select
                 id="target"
                 value={formData.target}
-                onChange={(e) => setFormData({ ...formData, target: e.target.value })}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                  setFormData({ ...formData, target: e.target.value })
+                }
+                className="w-full"
               >
                 <option value="all-course">All Students in Course</option>
                 <option value="100-level">100 Level Students</option>
@@ -174,9 +177,8 @@ export default function LecturerAnnouncementsPage() {
                 <option value="400-level">400 Level Students</option>
                 <option value="cs-dept">Computer Science Department</option>
                 <option value="eng-dept">Engineering Department</option>
-              </Select>
+              </select>
             </div>
-
             {/* Attachments */}
             <div className="space-y-2">
               <Label htmlFor="attachments">Attachments (Optional)</Label>
