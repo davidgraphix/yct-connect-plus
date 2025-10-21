@@ -11,7 +11,7 @@ export function useSync() {
     const unsubscribe = useAppStore.subscribe((state: any) => {
       // This callback fires whenever the store changes; log lastUpdated
       // Components can use this to trigger re-renders
-      console.log("[v0] Store updated:", state.lastUpdated)
+      console.log("Store updated:", state.lastUpdated)
     })
 
     return () => unsubscribe()

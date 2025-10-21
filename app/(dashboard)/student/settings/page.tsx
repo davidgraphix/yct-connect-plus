@@ -16,7 +16,18 @@ export default function StudentSettingsPage() {
     level: "ND2",
   })
   const [theme, setTheme] = useState("system")
-  const [notifications, setNotifications] = useState({
+
+  type Notifications = {
+    announcements: boolean
+    classReminders: boolean
+    newMaterials: boolean
+    emailNotifications: boolean
+    pushNotifications: boolean
+  }
+
+  type NotificationKey = keyof Notifications
+
+  const [notifications, setNotifications] = useState<Notifications>({
     announcements: true,
     classReminders: true,
     newMaterials: true,
@@ -37,7 +48,7 @@ export default function StudentSettingsPage() {
     alert(`Theme changed to ${newTheme}`)
   }
 
-  const handleNotificationChange = (key: string) => {
+  const handleNotificationChange = (key: NotificationKey) => {
     setNotifications((prev) => ({ ...prev, [key]: !prev[key] }))
   }
 
