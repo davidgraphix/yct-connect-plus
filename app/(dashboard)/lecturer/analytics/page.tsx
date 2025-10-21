@@ -14,9 +14,9 @@ export default function AdminSettingsPage() {
   const { platformName, setPlatformName, logoUrl, setLogoUrl, theme, setTheme } = useAppStore()
   const { toasts, addToast, removeToast } = useToast()
   const [activeTab, setActiveTab] = useState("general")
-  const [formData, setFormData] = useState({
-    platformName,
-    theme: theme || "light",
+  const [formData, setFormData] = useState<{ platformName: string; theme: "light" | "dark" }>({
+    platformName: platformName || "",
+    theme: (theme as "light" | "dark") || "light",
   })
 
   const tabs = [
@@ -127,7 +127,7 @@ export default function AdminSettingsPage() {
                   <label className="text-sm font-medium">Theme</label>
                   <select
                     value={formData.theme}
-                    onChange={(e) => setFormData({ ...formData, theme: e.target.value })}
+                    onChange={(e) => setFormData({ ...formData, theme: e.target.value as "light" | "dark" })}
                     className="w-full px-4 py-2 border rounded-lg bg-background"
                   >
                     <option value="light">Light</option>
