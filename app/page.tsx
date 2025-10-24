@@ -184,7 +184,7 @@ export default function LandingPage() {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-teal-500/20 rounded-2xl blur-2xl"></div>
                 <img
-                  src="/student-sitting-at-desk-with-laptop-and-computer-s.jpg"
+                  src="/hero1"
                   alt="Student using YCT Connect+"
                   className="relative w-full h-auto rounded-2xl shadow-2xl"
                 />
