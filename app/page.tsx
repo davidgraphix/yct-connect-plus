@@ -1,25 +1,71 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { GraduationCap, CheckCircle2, Menu, X, ArrowRight, Zap, Users, Clock } from "lucide-react"
-import { useState } from "react"
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  Book,
+  Pen,
+  Heart,
+  BookOpen,
+  Lightbulb,
+  Award,
+  GraduationCap,
+  CheckCircle2,
+  Menu,
+  X,
+  ArrowRight,
+  Zap,
+  Users,
+  Clock,
+  Bookmark,
+  FileText,
+  Briefcase,
+  Star,
+  Target,
+  Layers,
+} from "lucide-react";
+import { useState } from "react";
 
 export default function LandingPage() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen)
-  }
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+    const animatedIcons = [
+    { Icon: Book, delay: 0 },
+    { Icon: Pen, delay: 1.5 },
+    { Icon: Heart, delay: 3 },
+    { Icon: Clock, delay: 4.5 },
+    { Icon: BookOpen, delay: 6 },
+    { Icon: Lightbulb, delay: 7.5 },
+    { Icon: Award, delay: 9 },
+    { Icon: GraduationCap, delay: 10.5 },
+    { Icon: Bookmark, delay: 12 },
+    { Icon: FileText, delay: 13.5 },
+    { Icon: Briefcase, delay: 15 },
+    { Icon: Star, delay: 16.5 },
+    { Icon: Target, delay: 18 },
+    { Icon: Layers, delay: 19.5 },
+    { Icon: Book, delay: 21 },
+    { Icon: Pen, delay: 22.5 },
+    
+  ]
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-r from-blue-600/20 to-teal-500/20">
       {/* Navigation Bar */}
       <nav className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-teal-500/20 rounded-2xl blur-2xl"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-teal-500/20 rounded-2xl blur-2xl"></div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <Link
+              href="/"
+              className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+            >
               <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-teal-500 rounded-lg flex items-center justify-center">
                 <GraduationCap className="h-5 w-5 text-white" />
               </div>
@@ -52,7 +98,11 @@ export default function LandingPage() {
 
             {/* Desktop Auth Buttons */}
             <div className="hidden md:flex items-center gap-3">
-              <Button variant="ghost" asChild className="text-foreground/70 hover:text-foreground">
+              <Button
+                variant="ghost"
+                asChild
+                className="text-foreground/70 hover:text-foreground"
+              >
                 <Link href="/(auth)/choose-role">Login</Link>
               </Button>
               <Button
@@ -69,7 +119,11 @@ export default function LandingPage() {
               className="md:hidden p-2 hover:bg-muted rounded-lg transition-colors"
               aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {mobileMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
           </div>
 
@@ -98,7 +152,11 @@ export default function LandingPage() {
                 Why Us
               </Link>
               <div className="flex gap-2 pt-2">
-                <Button variant="outline" asChild className="flex-1 bg-transparent">
+                <Button
+                  variant="outline"
+                  asChild
+                  className="flex-1 bg-transparent"
+                >
                   <Link href="/(auth)/choose-role">Login</Link>
                 </Button>
                 <Button
@@ -115,14 +173,38 @@ export default function LandingPage() {
 
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-background to-teal-50 dark:from-slate-950 dark:via-background dark:to-slate-900">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-teal-500/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-teal-500/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-teal-500/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-teal-500/20"></div>
+
         {/* Animated Background Elements */}
+
+         {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {animatedIcons.map((item, index) => (
+            <div
+              key={index}
+              className="absolute animate-float-enhanced opacity-15 dark:opacity-5"
+              style={{
+                animation: `float-enhanced 30s infinite linear`,
+                animationDelay: `${item.delay}s`,
+                left: `${(index * 6.25) % 100}%`,
+                top: `${Math.sin(index * 0.5) * 40 + 50}%`,
+              }}
+            >
+              <item.Icon className="h-20 w-20 text-blue-600 dark:text-blue-400" />
+            </div>
+          ))}
+        </div>
+
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200 dark:bg-blue-900/20 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
           <div className="absolute top-40 right-10 w-72 h-72 bg-teal-200 dark:bg-teal-900/20 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
           <div className="absolute -bottom-8 left-1/2 w-72 h-72 bg-blue-200 dark:bg-blue-900/20 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
         </div>
 
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32">
+        <div className="relative  z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left Content */}
             <div className="space-y-6 sm:space-y-8">
@@ -134,8 +216,9 @@ export default function LandingPage() {
                   </span>
                 </h1>
                 <p className="text-lg sm:text-xl text-foreground/70 leading-relaxed max-w-lg">
-                  Access materials, view timetables, and stay updated— all in one unified platform designed for YABATECH
-                  students and lecturers.
+                  Access materials, view timetables, and stay updated— all in
+                  one unified platform designed for YABATECH students and
+                  lecturers.
                 </p>
               </div>
 
@@ -146,12 +229,20 @@ export default function LandingPage() {
                   className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-semibold group"
                   asChild
                 >
-                  <Link href="/(auth)/choose-role" className="flex items-center gap-2">
+                  <Link
+                    href="/(auth)/choose-role"
+                    className="flex items-center gap-2"
+                  >
                     Get Started
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" className="border-2 hover:bg-muted bg-transparent" asChild>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-2 hover:bg-muted bg-transparent"
+                  asChild
+                >
                   <Link href="/(auth)/choose-role">Login</Link>
                 </Button>
               </div>
@@ -182,11 +273,10 @@ export default function LandingPage() {
             {/* Right Image */}
             <div className="relative hidden lg:block">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-teal-500/20 rounded-2xl blur-2xl"></div>
                 <img
-                  src="/hero1"
+                  src="/hero1.png"
                   alt="Student using YCT Connect+"
-                  className="relative w-full h-auto rounded-2xl shadow-2xl"
+                  className="relative w-full h-auto"
                 />
               </div>
             </div>
@@ -195,10 +285,15 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-16 sm:py-24 bg-background">
+      <section
+        id="features"
+        className="py-16 sm:py-24 bg-gradient-to-r from-blue-600/20 to-teal-500/20"
+      >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Powerful Features for Everyone</h2>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+              Powerful Features for Everyone
+            </h2>
             <p className="text-lg text-foreground/60 max-w-2xl mx-auto">
               Everything you need to succeed in your academic journey
             </p>
@@ -209,22 +304,25 @@ export default function LandingPage() {
               {
                 icon: Clock,
                 title: "Smart Timetables",
-                description: "Never miss a class with intelligent schedule management and notifications",
+                description:
+                  "Never miss a class with intelligent schedule management and notifications",
               },
               {
                 icon: Users,
                 title: "Better Communication",
-                description: "Direct messaging between students and lecturers for seamless collaboration",
+                description:
+                  "Direct messaging between students and lecturers for seamless collaboration",
               },
               {
                 icon: Zap,
                 title: "Instant Updates",
-                description: "Real-time notifications for announcements, materials, and important events",
+                description:
+                  "Real-time notifications for announcements, materials, and important events",
               },
             ].map((feature, index) => (
               <div
                 key={index}
-                className="group p-6 sm:p-8 rounded-xl border border-border hover:border-blue-500/50 hover:shadow-lg transition-all duration-300 bg-card hover:bg-muted/50"
+                className="group p-6 sm:p-8 rounded-xl  shadow-xl border-border hover:border-blue-500/50 bg-gradient-to-r from-blue-600/20 to-teal-500/20 hover:shadow-lg transition-all duration-300 bg-card hover:bg-muted/50"
               >
                 <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-600/20 to-teal-500/20 flex items-center justify-center mb-4 group-hover:from-blue-600/30 group-hover:to-teal-500/30 transition-colors">
                   <feature.icon className="h-6 w-6 text-blue-600" />
@@ -238,11 +336,15 @@ export default function LandingPage() {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-16 sm:py-24 bg-muted/30">
+      <section id="how-it-works" className="py-16 sm:py-24 ">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">How It Works</h2>
-            <p className="text-lg text-foreground/60 max-w-2xl mx-auto">Get started in three simple steps</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+              How It Works
+            </h2>
+            <p className="text-lg text-foreground/60 max-w-2xl mx-auto">
+              Get started in three simple steps
+            </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
@@ -250,13 +352,15 @@ export default function LandingPage() {
               {
                 number: "1",
                 title: "Sign Up",
-                description: "Create your account as a student or lecturer in seconds",
+                description:
+                  "Create your account as a student or lecturer in seconds",
                 image: "/student-graduation-cap-icon-blue.jpg",
               },
               {
                 number: "2",
                 title: "Access Resources",
-                description: "Browse courses, materials, and timetables instantly",
+                description:
+                  "Browse courses, materials, and timetables instantly",
                 image: "/document-notes-paper-icon-blue.jpg",
               },
               {
@@ -293,7 +397,7 @@ export default function LandingPage() {
       </section>
 
       {/* Dashboard Demo Section */}
-      <section className="py-16 sm:py-24 bg-background">
+      <section className="py-16 sm:py-24 bg-gradient-to-r from-blue-600/20 to-teal-500/20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="relative hidden lg:block">
@@ -312,8 +416,9 @@ export default function LandingPage() {
                 </span>
               </h2>
               <p className="text-lg text-foreground/60 leading-relaxed">
-                Materials, announcements, and schedules— all personalized for your department and level. Access
-                everything from one intuitive dashboard.
+                Materials, announcements, and schedules— all personalized for
+                your department and level. Access everything from one intuitive
+                dashboard.
               </p>
               <ul className="space-y-3">
                 {[
@@ -333,7 +438,10 @@ export default function LandingPage() {
                 className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-semibold group"
                 asChild
               >
-                <Link href="/(auth)/choose-role" className="flex items-center gap-2">
+                <Link
+                  href="/(auth)/choose-role"
+                  className="flex items-center gap-2"
+                >
                   View Dashboard Demo
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
@@ -348,7 +456,9 @@ export default function LandingPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="space-y-8">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">Why Choose YCT Connect+?</h2>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
+                Why Choose YCT Connect+?
+              </h2>
               <div className="space-y-4">
                 {[
                   "Improves student-lecturer communication",
@@ -386,10 +496,18 @@ export default function LandingPage() {
             Ready to Transform Your Campus Experience?
           </h2>
           <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-            Join thousands of students and lecturers already using YCT Connect+ to stay connected and informed.
+            Join thousands of students and lecturers already using YCT Connect+
+            to stay connected and informed.
           </p>
-          <Button size="lg" className="bg-white hover:bg-gray-100 text-blue-600 font-semibold group" asChild>
-            <Link href="/(auth)/choose-role" className="flex items-center gap-2">
+          <Button
+            size="lg"
+            className="bg-white hover:bg-gray-100 text-blue-600 font-semibold group"
+            asChild
+          >
+            <Link
+              href="/(auth)/choose-role"
+              className="flex items-center gap-2"
+            >
               Get Started Now
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Link>
@@ -398,7 +516,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-background py-12 sm:py-16">
+      <footer className="border-t border-border bg-gradient-to-r from-blue-600/20 to-teal-500/20 py-12 sm:py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-8">
             <div className="space-y-4">
@@ -409,7 +527,8 @@ export default function LandingPage() {
                 <span className="font-bold">YCT Connect+</span>
               </div>
               <p className="text-sm text-foreground/60">
-                Your campus connection platform for YABATECH students and lecturers.
+                Your campus connection platform for YABATECH students and
+                lecturers.
               </p>
             </div>
             <div>
@@ -417,7 +536,10 @@ export default function LandingPage() {
               <ul className="space-y-2 text-sm">
                 {["Materials", "Timetable", "Announcements"].map((link) => (
                   <li key={link}>
-                    <Link href="#" className="text-foreground/60 hover:text-foreground transition-colors">
+                    <Link
+                      href="#"
+                      className="text-foreground/60 hover:text-foreground transition-colors"
+                    >
                       {link}
                     </Link>
                   </li>
@@ -429,7 +551,10 @@ export default function LandingPage() {
               <ul className="space-y-2 text-sm">
                 {["Help Center", "Contact Us", "FAQs"].map((link) => (
                   <li key={link}>
-                    <Link href="#" className="text-foreground/60 hover:text-foreground transition-colors">
+                    <Link
+                      href="#"
+                      className="text-foreground/60 hover:text-foreground transition-colors"
+                    >
                       {link}
                     </Link>
                   </li>
@@ -441,7 +566,10 @@ export default function LandingPage() {
               <ul className="space-y-2 text-sm">
                 {["Privacy Policy", "Terms of Service"].map((link) => (
                   <li key={link}>
-                    <Link href="#" className="text-foreground/60 hover:text-foreground transition-colors">
+                    <Link
+                      href="#"
+                      className="text-foreground/60 hover:text-foreground transition-colors"
+                    >
                       {link}
                     </Link>
                   </li>
@@ -450,7 +578,10 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="pt-8 border-t border-border text-center text-sm text-foreground/60">
-            <p>&copy; {new Date().getFullYear()} YCT Connect+. All rights reserved.</p>
+            <p>
+              &copy; {new Date().getFullYear()} YCT Connect+. All rights
+              reserved.
+            </p>
           </div>
         </div>
       </footer>
@@ -458,7 +589,8 @@ export default function LandingPage() {
       {/* Animations */}
       <style jsx>{`
         @keyframes blob {
-          0%, 100% {
+          0%,
+          100% {
             transform: translate(0, 0) scale(1);
           }
           33% {
@@ -479,5 +611,5 @@ export default function LandingPage() {
         }
       `}</style>
     </div>
-  )
+  );
 }
