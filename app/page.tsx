@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
   Book,
@@ -54,7 +55,7 @@ export default function LandingPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-600/20 to-teal-500/20">
+    <div className="min-h-screen ">
       {/* Navigation Bar */}
       <nav className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-teal-500/20 rounded-2xl blur-2xl"></div>
@@ -208,19 +209,28 @@ export default function LandingPage() {
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left Content */}
             <div className="space-y-6 sm:space-y-8">
-              <div className="space-y-4">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-balance">
-                  Your Campus.{" "}
-                  <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
-                    Connected.
-                  </span>
-                </h1>
-                <p className="text-lg sm:text-xl text-foreground/70 leading-relaxed max-w-lg">
-                  Access materials, view timetables, and stay updated— all in
-                  one unified platform designed for YABATECH students and
-                  lecturers.
-                </p>
-              </div>
+          <motion.div
+  initial={{ opacity: 0, x: -60 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{
+    duration: 1.2,
+    ease: "easeOut",
+  }}
+  className="space-y-6 sm:space-y-8"
+>
+  <div className="space-y-4">
+    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-balance">
+      Your Campus.{" "}
+      <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
+        Connected.
+      </span>
+    </h1>
+    <p className="text-lg sm:text-xl text-foreground/70 leading-relaxed max-w-lg">
+      Access materials, view timetables, and stay updated— all in one unified
+      platform designed for YABATECH students and lecturers.
+    </p>
+  </div>
+</motion.div>
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-3 pt-4">
@@ -270,16 +280,20 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Right Image */}
-            <div className="relative hidden lg:block">
-              <div className="relative">
-                <img
-                  src="/hero1.png"
-                  alt="Student using YCT Connect+"
-                  className="relative w-full h-auto"
-                />
-              </div>
-            </div>
+       {/* Right Image  */}
+<div className="relative hidden lg:block">
+  <motion.img
+    src="/hero1.png"
+    alt="Student using YCT Connect+"
+    initial={{ opacity: 0, scale: 0.8 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{
+      duration: 1.2,
+      ease: "easeOut",
+    }}
+    className="w-full h-auto"
+  />
+</div>
           </div>
         </div>
       </section>
