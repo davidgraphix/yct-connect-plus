@@ -227,7 +227,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, x: -60 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{
-                  duration: 1.2,
+                  duration: 4,
                   ease: "easeOut",
                 }}
                 className="space-y-6 sm:space-y-8"
@@ -252,7 +252,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, x: -60 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{
-                  duration: 1.2,
+                  duration: 4,
                   ease: "easeOut",
                 }}
                 className="flex flex-col sm:flex-row gap-3 pt-4"
@@ -262,10 +262,7 @@ export default function LandingPage() {
                   className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-semibold group"
                   asChild
                 >
-                  <Link
-                    href="/choose-role"
-                    className="flex items-center gap-2"
-                  >
+                  <Link href="/choose-role" className="flex items-center gap-2">
                     Get Started
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
@@ -285,7 +282,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, x: -60 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{
-                  duration: 1.2,
+                  duration: 4,
                   ease: "easeOut",
                 }}
                 className="flex flex-wrap gap-6 pt-4"
@@ -319,7 +316,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{
-                  duration: 1.2,
+                  duration: 1.5,
                   ease: "easeOut",
                 }}
                 className="w-full h-auto"
@@ -365,16 +362,25 @@ export default function LandingPage() {
                   "Real-time notifications for announcements, materials, and important events",
               },
             ].map((feature, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="group p-6 sm:p-8 rounded-xl  shadow-xl border-border hover:border-blue-500/50 bg-gradient-to-r from-blue-600/20 to-teal-500/20 hover:shadow-lg transition-all duration-300 bg-card hover:bg-muted/50"
+                initial={{ y: -80, opacity: 0, scale: 0.9 }}
+                animate={{ y: 0, opacity: 1, scale: 1 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 60,
+                  damping: 12,
+                  duration: 8,
+                  delay: index * 0.5,
+                }}
+                className="group p-6 sm:p-8 rounded-xl shadow-xl border-border hover:border-blue-500/50 bg-gradient-to-r from-blue-600/20 to-teal-500/20 hover:shadow-lg transition-all duration-300 bg-card hover:bg-muted/50"
               >
                 <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-600/20 to-teal-500/20 flex items-center justify-center mb-4 group-hover:from-blue-600/30 group-hover:to-teal-500/30 transition-colors">
                   <feature.icon className="h-6 w-6 text-blue-600" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
                 <p className="text-foreground/60">{feature.description}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -445,26 +451,55 @@ export default function LandingPage() {
       <section className="py-16 sm:py-24 bg-gradient-to-r from-blue-600/20 to-teal-500/20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            <div className="relative hidden lg:block">
-              <div className="absolute inset-0 "></div>
+            {/* Image side */}
+            <motion.div
+              initial={{ x: -150, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 60,
+                damping: 15,
+                duration: 5,
+                delay: 0.1,
+              }}
+              viewport={{ once: true }}
+              className="relative hidden lg:block"
+            >
+              <div className="absolute inset-0"></div>
               <img
                 src="/yct-dashboard-pic.png"
                 alt="Dashboard preview"
-                className="relative w-full h-auto "
+                className="relative w-full h-auto"
               />
-            </div>
-            <div className="space-y-6">
+            </motion.div>
+
+            {/* Text side */}
+            <motion.div
+              initial={{ x: 150, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 60,
+                damping: 15,
+                duration: 5,
+                delay: 0.1,
+              }}
+              viewport={{ once: true }}
+              className="space-y-6"
+            >
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-balance">
                 One Dashboard.{" "}
                 <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
                   Everything You Need.
                 </span>
               </h2>
+
               <p className="text-lg text-foreground/60 leading-relaxed">
                 Materials, announcements, and schedules— all personalized for
                 your department and level. Access everything from one intuitive
                 dashboard.
               </p>
+
               <ul className="space-y-3">
                 {[
                   "Personalized course materials",
@@ -478,20 +513,18 @@ export default function LandingPage() {
                   </li>
                 ))}
               </ul>
+
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-semibold group"
                 asChild
               >
-                <Link
-                  href="/choose-role"
-                  className="flex items-center gap-2"
-                >
+                <Link href="/choose-role" className="flex items-center gap-2">
                   View Dashboard Demo
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -549,10 +582,7 @@ export default function LandingPage() {
             className="bg-white hover:bg-gray-100 text-blue-600 font-semibold group"
             asChild
           >
-            <Link
-              href="/choose-role"
-              className="flex items-center gap-2"
-            >
+            <Link href="/choose-role" className="flex items-center gap-2">
               Get Started Now
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Link>
