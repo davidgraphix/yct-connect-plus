@@ -51,22 +51,11 @@ export default function LandingPage() {
     { Icon: Layers, delay: 19.5, animation: "move-up-down" },
     { Icon: Book, delay: 21, animation: "move-top-bottom" },
     { Icon: Pen, delay: 22.5, animation: "move-left-right" },
-    { Icon: Book, delay: 0 },
     { Icon: Pen, delay: 1.5 },
     { Icon: Heart, delay: 3 },
-    { Icon: Clock, delay: 4.5 },
     { Icon: BookOpen, delay: 6 },
     { Icon: Lightbulb, delay: 7.5 },
     { Icon: Award, delay: 9 },
-    { Icon: GraduationCap, delay: 10.5 },
-    { Icon: Bookmark, delay: 12 },
-    { Icon: FileText, delay: 13.5 },
-    { Icon: Briefcase, delay: 15 },
-    { Icon: Star, delay: 16.5 },
-    { Icon: Target, delay: 18 },
-    { Icon: Layers, delay: 19.5 },
-    { Icon: Book, delay: 21 },
-    { Icon: Pen, delay: 22.5 },
   ];
 
   return (
