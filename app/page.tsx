@@ -255,15 +255,14 @@ export default function LandingPage() {
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
-    <Button
-  size="lg"
-  variant="outline"
-  className="bg-blue-600 text-white border border-white hover:bg-teal-500 hover:text-black hover:border-black transition-all duration-300"
-  asChild
->
-  <Link href="/(auth)/choose-role">Login</Link>
-</Button>
-
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="bg-blue-600 text-white border border-white hover:bg-teal-500 hover:text-black hover:border-black transition-all duration-300"
+                  asChild
+                >
+                  <Link href="/(auth)/choose-role">Login</Link>
+                </Button>
               </motion.div>
 
               {/* Trust Indicators */}
