@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
   Book,
@@ -50,10 +51,26 @@ export default function LandingPage() {
     { Icon: Layers, delay: 19.5, animation: "move-up-down" },
     { Icon: Book, delay: 21, animation: "move-top-bottom" },
     { Icon: Pen, delay: 22.5, animation: "move-left-right" },
+    { Icon: Book, delay: 0 },
+    { Icon: Pen, delay: 1.5 },
+    { Icon: Heart, delay: 3 },
+    { Icon: Clock, delay: 4.5 },
+    { Icon: BookOpen, delay: 6 },
+    { Icon: Lightbulb, delay: 7.5 },
+    { Icon: Award, delay: 9 },
+    { Icon: GraduationCap, delay: 10.5 },
+    { Icon: Bookmark, delay: 12 },
+    { Icon: FileText, delay: 13.5 },
+    { Icon: Briefcase, delay: 15 },
+    { Icon: Star, delay: 16.5 },
+    { Icon: Target, delay: 18 },
+    { Icon: Layers, delay: 19.5 },
+    { Icon: Book, delay: 21 },
+    { Icon: Pen, delay: 22.5 },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-600/20 to-teal-500/20">
+    <div className="min-h-screen ">
       {/* Navigation Bar */}
       <nav className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-teal-500/20 blur-2xl"></div>
@@ -206,22 +223,40 @@ export default function LandingPage() {
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left Content */}
             <div className="space-y-6 sm:space-y-8">
-              <div className="space-y-4">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-balance">
-                  Your Campus.{" "}
-                  <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
-                    Connected.
-                  </span>
-                </h1>
-                <p className="text-lg sm:text-xl text-foreground/70 leading-relaxed max-w-lg">
-                  Access materials, view timetables, and stay updated— all in
-                  one unified platform designed for YABATECH students and
-                  lecturers.
-                </p>
-              </div>
+              <motion.div
+                initial={{ opacity: 0, x: -60 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  duration: 1.2,
+                  ease: "easeOut",
+                }}
+                className="space-y-6 sm:space-y-8"
+              >
+                <div className="space-y-4">
+                  <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-balance">
+                    Your Campus.{" "}
+                    <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
+                      Connected.
+                    </span>
+                  </h1>
+                  <p className="text-lg sm:text-xl text-foreground/70 leading-relaxed max-w-lg">
+                    Access materials, view timetables, and stay updated— all in
+                    one unified platform designed for YABATECH students and
+                    lecturers.
+                  </p>
+                </div>
+              </motion.div>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 pt-4">
+              <motion.div
+                initial={{ opacity: 0, x: -60 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  duration: 1.2,
+                  ease: "easeOut",
+                }}
+                className="flex flex-col sm:flex-row gap-3 pt-4"
+              >
                 <Button
                   size="lg"
                   className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-semibold group"
@@ -235,18 +270,27 @@ export default function LandingPage() {
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-2 hover:bg-muted bg-transparent"
-                  asChild
-                >
-                  <Link href="/choose-role">Login</Link>
-                </Button>
-              </div>
+    <Button
+  size="lg"
+  variant="outline"
+  className="bg-blue-600 text-white border border-white hover:bg-teal-500 hover:text-black hover:border-black transition-all duration-300"
+  asChild
+>
+  <Link href="/(auth)/choose-role">Login</Link>
+</Button>
+
+              </motion.div>
 
               {/* Trust Indicators */}
-              <div className="flex flex-wrap gap-6 pt-4">
+              <motion.div
+                initial={{ opacity: 0, x: -60 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  duration: 1.2,
+                  ease: "easeOut",
+                }}
+                className="flex flex-wrap gap-6 pt-4"
+              >
                 <div className="flex items-center gap-2">
                   <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
                     <Users className="h-5 w-5 text-blue-600" />
@@ -265,18 +309,22 @@ export default function LandingPage() {
                     <p className="text-xs text-foreground/60">Updates</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
 
-            {/* Right Image */}
+            {/* Right Image  */}
             <div className="relative hidden lg:block">
-              <div className="relative">
-                <img
-                  src="/hero1.png"
-                  alt="Student using YCT Connect+"
-                  className="relative w-full h-auto"
-                />
-              </div>
+              <motion.img
+                src="/hero1.png"
+                alt="Student using YCT Connect+"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  duration: 1.2,
+                  ease: "easeOut",
+                }}
+                className="w-full h-auto"
+              />
             </div>
           </div>
         </div>
