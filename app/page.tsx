@@ -61,9 +61,9 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen ">
       {/* Navigation Bar */}
-      <nav className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-teal-500/20 blur-2xl"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-teal-500/20 blur-2xl"></div>
+      <nav className="sticky top-0 z-50 bg-gradient-to-r from-blue-600/20 to-teal-500/20 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        {/* <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-teal-500/20 blur-2xl"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-teal-500/20 blur-2xl"></div> */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
@@ -81,6 +81,7 @@ export default function LandingPage() {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
+              
               <Link
                 href="#features"
                 className="text-sm font-medium text-foreground/70 cursor-pointer hover:text-foreground transition-colors"
@@ -264,7 +265,7 @@ export default function LandingPage() {
                   className="bg-blue-600 text-white border border-white hover:bg-teal-500 hover:text-black hover:border-black transition-all duration-300"
                   asChild
                 >
-                  <Link href="/(auth)/choose-role">Login</Link>
+                  <Link href="/choose-role">Login</Link>
                 </Button>
               </motion.div>
 
