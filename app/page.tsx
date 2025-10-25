@@ -225,11 +225,12 @@ export default function LandingPage() {
             <div className="space-y-6 sm:space-y-8">
               <motion.div
                 initial={{ opacity: 0, x: -60 }}
-                animate={{ opacity: 1, x: 0 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 transition={{
-                  duration: 4,
+                  duration: 2.8,
                   ease: "easeOut",
                 }}
+                viewport={{ once: false, amount: 0.3 }}
                 className="space-y-6 sm:space-y-8"
               >
                 <div className="space-y-4">
@@ -250,11 +251,12 @@ export default function LandingPage() {
               {/* CTA Buttons */}
               <motion.div
                 initial={{ opacity: 0, x: -60 }}
-                animate={{ opacity: 1, x: 0 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 transition={{
-                  duration: 4,
+                  duration: 2.8,
                   ease: "easeOut",
                 }}
+                viewport={{ once: false, amount: 0.3 }}
                 className="flex flex-col sm:flex-row gap-3 pt-4"
               >
                 <Button
@@ -280,11 +282,12 @@ export default function LandingPage() {
               {/* Trust Indicators */}
               <motion.div
                 initial={{ opacity: 0, x: -60 }}
-                animate={{ opacity: 1, x: 0 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 transition={{
-                  duration: 4,
+                  duration: 2.8,
                   ease: "easeOut",
                 }}
+                viewport={{ once: false, amount: 0.3 }}
                 className="flex flex-wrap gap-6 pt-4"
               >
                 <div className="flex items-center gap-2">
@@ -365,14 +368,15 @@ export default function LandingPage() {
               <motion.div
                 key={index}
                 initial={{ y: -80, opacity: 0, scale: 0.9 }}
-                animate={{ y: 0, opacity: 1, scale: 1 }}
+                whileInView={{ y: 0, opacity: 1, scale: 1 }}
                 transition={{
                   type: "spring",
                   stiffness: 60,
                   damping: 12,
                   duration: 8,
-                  delay: index * 0.5,
+                  delay: index * 0.7,
                 }}
+                viewport={{ once: false, amount: 0.3 }}
                 className="group p-6 sm:p-8 rounded-xl shadow-xl border-border hover:border-blue-500/50 bg-gradient-to-r from-blue-600/20 to-teal-500/20 hover:shadow-lg transition-all duration-300 bg-card hover:bg-muted/50"
               >
                 <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-600/20 to-teal-500/20 flex items-center justify-center mb-4 group-hover:from-blue-600/30 group-hover:to-teal-500/30 transition-colors">
@@ -462,7 +466,7 @@ export default function LandingPage() {
                 duration: 5,
                 delay: 0.1,
               }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.3 }}
               className="relative hidden lg:block"
             >
               <div className="absolute inset-0"></div>
@@ -484,7 +488,7 @@ export default function LandingPage() {
                 duration: 5,
                 delay: 0.1,
               }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.3 }}
               className="space-y-6"
             >
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-balance">
