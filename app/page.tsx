@@ -35,6 +35,22 @@ export default function LandingPage() {
   };
 
   const animatedIcons = [
+    { Icon: Book, delay: 0, animation: "move-left-right" },
+    { Icon: Pen, delay: 1.5, animation: "move-up-down" },
+    { Icon: Heart, delay: 3, animation: "move-top-bottom" },
+    { Icon: Clock, delay: 4.5, animation: "move-left-right" },
+    { Icon: BookOpen, delay: 6, animation: "move-up-down" },
+    { Icon: Lightbulb, delay: 7.5, animation: "move-top-bottom" },
+    { Icon: Award, delay: 9, animation: "move-left-right" },
+    { Icon: GraduationCap, delay: 10.5, animation: "move-up-down" },
+    { Icon: Bookmark, delay: 12, animation: "move-top-bottom" },
+    { Icon: FileText, delay: 13.5, animation: "move-left-right" },
+    { Icon: Briefcase, delay: 15, animation: "move-up-down" },
+    { Icon: Star, delay: 16.5, animation: "move-top-bottom" },
+    { Icon: Target, delay: 18, animation: "move-left-right" },
+    { Icon: Layers, delay: 19.5, animation: "move-up-down" },
+    { Icon: Book, delay: 21, animation: "move-top-bottom" },
+    { Icon: Pen, delay: 22.5, animation: "move-left-right" },
     { Icon: Book, delay: 0 },
     { Icon: Pen, delay: 1.5 },
     { Icon: Heart, delay: 3 },
@@ -57,8 +73,8 @@ export default function LandingPage() {
     <div className="min-h-screen ">
       {/* Navigation Bar */}
       <nav className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-teal-500/20 rounded-2xl blur-2xl"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-teal-500/20 rounded-2xl blur-2xl"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-teal-500/20 blur-2xl"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-teal-500/20 blur-2xl"></div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
@@ -78,7 +94,7 @@ export default function LandingPage() {
             <div className="hidden md:flex items-center gap-8">
               <Link
                 href="#features"
-                className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors"
+                className="text-sm font-medium text-foreground/70 cursor-pointer hover:text-foreground transition-colors"
               >
                 Features
               </Link>
@@ -101,15 +117,15 @@ export default function LandingPage() {
               <Button
                 variant="ghost"
                 asChild
-                className="text-foreground/70 hover:text-foreground"
+                className="text-foreground/70 cursor-pointer hover:text-foreground"
               >
-                <Link href="/(auth)/choose-role">Login</Link>
+                <Link href="/choose-role">Login</Link>
               </Button>
               <Button
                 asChild
                 className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white"
               >
-                <Link href="/(auth)/choose-role">Get Started</Link>
+                <Link href="/choose-role">Get Started</Link>
               </Button>
             </div>
 
@@ -157,13 +173,13 @@ export default function LandingPage() {
                   asChild
                   className="flex-1 bg-transparent"
                 >
-                  <Link href="/(auth)/choose-role">Login</Link>
+                  <Link href="/choose-role">Login</Link>
                 </Button>
                 <Button
                   asChild
                   className="flex-1 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white"
                 >
-                  <Link href="/(auth)/choose-role">Get Started</Link>
+                  <Link href="/choose-role">Get Started</Link>
                 </Button>
               </div>
             </div>
@@ -185,9 +201,8 @@ export default function LandingPage() {
           {animatedIcons.map((item, index) => (
             <div
               key={index}
-              className="absolute animate-float-enhanced opacity-15 dark:opacity-5"
+              className={`absolute opacity-20 dark:opacity-10 ${item.animation}`}
               style={{
-                animation: `float-enhanced 30s infinite linear`,
                 animationDelay: `${item.delay}s`,
                 left: `${(index * 6.25) % 100}%`,
                 top: `${Math.sin(index * 0.5) * 40 + 50}%`,
@@ -248,7 +263,7 @@ export default function LandingPage() {
                   asChild
                 >
                   <Link
-                    href="/(auth)/choose-role"
+                    href="/choose-role"
                     className="flex items-center gap-2"
                   >
                     Get Started
@@ -469,7 +484,7 @@ export default function LandingPage() {
                 asChild
               >
                 <Link
-                  href="/(auth)/choose-role"
+                  href="/choose-role"
                   className="flex items-center gap-2"
                 >
                   View Dashboard Demo
@@ -535,7 +550,7 @@ export default function LandingPage() {
             asChild
           >
             <Link
-              href="/(auth)/choose-role"
+              href="/choose-role"
               className="flex items-center gap-2"
             >
               Get Started Now
@@ -617,6 +632,7 @@ export default function LandingPage() {
       </footer>
 
       {/* Animations */}
+      {/* Animations */}
       <style jsx>{`
         @keyframes blob {
           0%,
@@ -638,6 +654,55 @@ export default function LandingPage() {
         }
         .animation-delay-4000 {
           animation-delay: 4s;
+        }
+
+        /* Simplified animations for clear directional movement */
+        @keyframes move-left-right {
+          0% {
+            transform: translateX(-100px);
+          }
+          50% {
+            transform: translateX(100px);
+          }
+          100% {
+            transform: translateX(-100px);
+          }
+        }
+
+        @keyframes move-up-down {
+          0% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-80px);
+          }
+          100% {
+            transform: translateY(0px);
+          }
+        }
+
+        @keyframes move-top-bottom {
+          0% {
+            transform: translateY(-80px);
+          }
+          50% {
+            transform: translateY(80px);
+          }
+          100% {
+            transform: translateY(-80px);
+          }
+        }
+
+        .move-left-right {
+          animation: move-left-right 8s infinite ease-in-out;
+        }
+
+        .move-up-down {
+          animation: move-up-down 8s infinite ease-in-out;
+        }
+
+        .move-top-bottom {
+          animation: move-top-bottom 8s infinite ease-in-out;
         }
       `}</style>
     </div>
