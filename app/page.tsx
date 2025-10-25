@@ -446,11 +446,11 @@ export default function LandingPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="relative hidden lg:block">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-teal-500/20 rounded-2xl blur-2xl"></div>
+              <div className="absolute inset-0 "></div>
               <img
-                src="/laptop-showing-dashboard-with-charts-graphs-and-na.jpg"
+                src="/yct-dashboard-pic.png"
                 alt="Dashboard preview"
-                className="relative w-full h-auto rounded-2xl shadow-2xl"
+                className="relative w-full h-auto "
               />
             </div>
             <div className="space-y-6">
@@ -523,11 +523,11 @@ export default function LandingPage() {
               </div>
             </div>
             <div className="relative flex justify-center">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-teal-500/20 rounded-2xl blur-2xl"></div>
+              <div className="absolute inset-0  "></div>
               <img
-                src="/happy-student-holding-phone-with-blue-background-c.jpg"
+                src="/student-pic.png"
                 alt="Student using mobile app"
-                className="relative w-full max-w-md h-auto rounded-2xl shadow-2xl"
+                className="relative w-full max-w-md h-auto "
               />
             </div>
           </div>
