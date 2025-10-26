@@ -399,20 +399,20 @@ export default function LandingPage() {
                 title: "Sign Up",
                 description:
                   "Create your account as a student or lecturer in seconds",
-                image: "/student-graduation-cap-icon-blue.jpg",
+                image: "/signup-img.png",
               },
               {
                 number: "2",
                 title: "Access Resources",
                 description:
                   "Browse courses, materials, and timetables instantly",
-                image: "/document-notes-paper-icon-blue.jpg",
+                image: "/accessresources-img.png",
               },
               {
                 number: "3",
                 title: "Stay Connected",
                 description: "Receive real-time updates and notifications",
-                image: "/notification-bell-icon-blue.jpg",
+                image: "/stayconnected-img.png",
               },
             ].map((step, index) => (
               <div key={index} className="relative">
@@ -420,7 +420,7 @@ export default function LandingPage() {
                   <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-teal-500 text-white flex items-center justify-center text-2xl font-bold shadow-lg">
                     {step.number}
                   </div>
-                  <div className="w-24 h-24 flex items-center justify-center rounded-lg bg-muted p-2">
+                  <div className="w-55 h-55 flex items-center justify-center ">
                     <img
                       src={step.image || "/placeholder.svg"}
                       alt={step.title}
