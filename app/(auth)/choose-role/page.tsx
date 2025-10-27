@@ -35,7 +35,7 @@ export default function ChooseRolePage() {
               <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-white/20 transition-colors">
                 <GraduationCap className="w-10 h-10 text-white" />
               </div>
-              <h3 className="text-3xl font-bold text-white mb-2">I'm a Student</h3>
+              <h3 className="text-3xl font-bold text-white mb-2">I&apos;m a Student</h3>
               <p className="text-blue-100">Access course materials, timetables, and announcements</p>
             </div>
           </Link>
@@ -50,7 +50,7 @@ export default function ChooseRolePage() {
               <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-white/10 transition-colors">
                 <BookOpen className="w-10 h-10 text-white" />
               </div>
-              <h3 className="text-3xl font-bold text-white mb-2">I'm a Lecturer</h3>
+              <h3 className="text-3xl font-bold text-white mb-2">I&apos;m a Lecturer</h3>
               <p className="text-slate-300">Upload materials, manage courses, and post announcements</p>
             </div>
           </Link>

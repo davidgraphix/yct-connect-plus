@@ -25,8 +25,20 @@ export default function DepartmentsPage() {
   const [searchQuery, setSearchQuery] = useState("")
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
   const [isManageDialogOpen, setIsManageDialogOpen] = useState(false)
-  const [selectedDept, setSelectedDept] = useState<any>(null)
-  const [editFormData, setEditFormData] = useState<any>(null)
+  const [selectedDept, setSelectedDept] = useState<{
+    id: string;
+    name: string;
+    faculty: string;
+    studentCount: number;
+    hod: string;
+  } | null>(null)
+  const [editFormData, setEditFormData] = useState<{
+    id: string;
+    name: string;
+    faculty: string;
+    studentCount: number;
+    hod: string;
+  } | null>(null)
 
   const filteredDepartments = departments.filter(
     (dept) =>
@@ -65,13 +77,28 @@ export default function DepartmentsPage() {
     setIsManageDialogOpen(false)
   }
 
-  const handleManageDepartment = (dept: any) => {
+  const handleManageDepartment = (dept: {
+    id: string;
+    name: string;
+    faculty: string;
+    studentCount: number;
+    hod: string;
+  }) => {
     setSelectedDept(dept)
     setEditFormData({ ...dept })
     setIsManageDialogOpen(true)
   }
 
   const handleSaveChanges = () => {
+    if (!editFormData) {
+      addToast({
+        title: "Error",
+        description: "No department data to save",
+        type: "error",
+      })
+      return
+    }
+
     if (!editFormData.name || !editFormData.faculty || !editFormData.hod) {
       addToast({
         title: "Error",
@@ -80,6 +107,16 @@ export default function DepartmentsPage() {
       })
       return
     }
+
+    if (!selectedDept) {
+      addToast({
+        title: "Error",
+        description: "No department selected",
+        type: "error",
+      })
+      return
+    }
+
     updateDepartment(selectedDept.id, editFormData)
     addToast({
       title: "Department Updated",
@@ -246,7 +283,13 @@ export default function DepartmentsPage() {
                 <Button variant="outline" onClick={() => setIsManageDialogOpen(false)}>
                   Cancel
                 </Button>
-                <Button variant="destructive" onClick={() => handleDeleteDepartment(selectedDept.id)}>
+                <Button
+                  variant="destructive"
+                  onClick={() => {
+                    if (selectedDept) handleDeleteDepartment(selectedDept.id)
+                  }}
+                  disabled={!selectedDept}
+                >
                   Delete Department
                 </Button>
                 <Button className="bg-blue-600 hover:bg-blue-700" onClick={handleSaveChanges}>

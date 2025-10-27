@@ -76,8 +76,19 @@ export default function AdminAnnouncementsPage() {
     setEditingId(null)
     setShowCreateModal(false)
   }
+  interface Announcement {
+    id: string
+    title: string
+    message: string
+    author: string
+    authorRole: string
+    target: "all" | "specific"
+    targetAudience?: string
+    createdAt: string
+    status: "published" | "draft"
+  }
 
-  const handleEdit = (announcement: any) => {
+  const handleEdit = (announcement: Announcement) => {
     setFormData({
       title: announcement.title,
       message: announcement.message,
