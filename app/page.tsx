@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
@@ -421,10 +422,12 @@ export default function LandingPage() {
                     {step.number}
                   </div>
                   <div className="w-55 h-55 flex items-center justify-center ">
-                    <img
+                    <Image
                       src={step.image || "/placeholder.svg"}
                       alt={step.title}
                       className="w-full h-full object-contain"
+                      width={500}
+                      height={300}
                     />
                   </div>
                   <h3 className="text-xl font-bold">{step.title}</h3>
@@ -460,10 +463,12 @@ export default function LandingPage() {
               className="relative hidden lg:block"
             >
               <div className="absolute inset-0"></div>
-              <img
+              <Image
                 src="/yct-dashboard-pic.png"
                 alt="Dashboard preview"
                 className="relative w-full h-auto"
+                width={500}
+                height={300}
               />
             </motion.div>
 
@@ -574,10 +579,12 @@ export default function LandingPage() {
               className="relative flex justify-center"
             >
               <div className="absolute inset-0  "></div>
-              <img
+              <Image
                 src="/student-pic.png"
                 alt="Student using mobile app"
                 className="relative w-full max-w-md h-auto "
+                width={500}
+                height={300}
               />
             </motion.div>
           </div>

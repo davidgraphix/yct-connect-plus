@@ -34,7 +34,7 @@ export default function StudentDashboard() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl md:text-3xl font-bold">Welcome, David 👋</h1>
-        <p className="text-muted-foreground text-sm md:text-base">Here's what's happening with your courses today.</p>
+        <p className="text-muted-foreground text-sm md:text-base">Here&apos;s what&apos;s happening with your courses today.</p>
       </div>
 
       {/* Quick Stats */}

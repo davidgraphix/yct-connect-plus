@@ -7,7 +7,17 @@ import { useState } from "react"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 
 export default function SmartClassPage() {
-  const [selectedClass, setSelectedClass] = useState<any>(null)
+  const [selectedClass, setSelectedClass] = useState<{
+    id: number
+    title: string
+    code: string
+    lecturer: string
+    time: string
+    venue: string
+    status: "upcoming" | "scheduled" | string
+    students: number
+    description: string
+  } | null>(null)
 
   const classes = [
     {
