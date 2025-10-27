@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, ReactNode } from "react"
 import { useAppStore } from "@/lib/store"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -14,7 +14,17 @@ export default function MaterialsManagementPage() {
   const { toasts, addToast, removeToast } = useToast()
   const [selectedDept, setSelectedDept] = useState<string>("")
   const [selectedStatus, setSelectedStatus] = useState<string>("")
-  const [previewMaterial, setPreviewMaterial] = useState<any>(null)
+  const [previewMaterial, setPreviewMaterial] = useState<{
+    title: string
+    downloads: ReactNode
+    fileSize: ReactNode
+    level: ReactNode
+    department: ReactNode
+    id: string
+    course: string
+    lecturer: ReactNode
+
+  } | null>(null)
 
   const { filtered, searchTerm, setSearchTerm } = useSearchFilter({
     items: materials,

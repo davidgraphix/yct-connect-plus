@@ -1,23 +1,42 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Calendar, Clock, MapPin, Video, Users, CheckCircle } from "lucide-react"
-import { useState } from "react"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  Calendar,
+  Clock,
+  MapPin,
+  Video,
+  Users,
+  CheckCircle,
+} from "lucide-react";
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export default function SmartClassPage() {
   const [selectedClass, setSelectedClass] = useState<{
-    id: number
-    title: string
-    code: string
-    lecturer: string
-    time: string
-    venue: string
-    status: "upcoming" | "scheduled" | string
-    students: number
-    description: string
-  } | null>(null)
+    id: number;
+    title: string;
+    code: string;
+    lecturer: string;
+    time: string;
+    venue: string;
+    status: "upcoming" | "scheduled" | string;
+    students: number;
+    description: string;
+  } | null>(null);
 
   const classes = [
     {
@@ -41,7 +60,8 @@ export default function SmartClassPage() {
       venue: "Lab 3",
       status: "upcoming",
       students: 38,
-      description: "Introduction to database design, SQL, normalization, and transaction management.",
+      description:
+        "Introduction to database design, SQL, normalization, and transaction management.",
     },
     {
       id: 3,
@@ -52,14 +72,27 @@ export default function SmartClassPage() {
       venue: "Room 105",
       status: "scheduled",
       students: 52,
-      description: "Learn modern web development with HTML, CSS, JavaScript, and React frameworks.",
+      description:
+        "Learn modern web development with HTML, CSS, JavaScript, and React frameworks.",
     },
-  ]
+  ];
 
   const recordings = [
-    { id: 1, title: "Introduction to Algorithms", course: "CS 301", date: "Mar 14, 2024", duration: "1h 45m" },
-    { id: 2, title: "SQL Fundamentals", course: "CS 302", date: "Mar 13, 2024", duration: "2h 10m" },
-  ]
+    {
+      id: 1,
+      title: "Introduction to Algorithms",
+      course: "CS 301",
+      date: "Mar 14, 2024",
+      duration: "1h 45m",
+    },
+    {
+      id: 2,
+      title: "SQL Fundamentals",
+      course: "CS 302",
+      date: "Mar 13, 2024",
+      duration: "2h 10m",
+    },
+  ];
 
   return (
     <div className="space-y-6">
@@ -73,7 +106,9 @@ export default function SmartClassPage() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Today's Classes</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Today&apos;s Classes
+            </CardTitle>
             <Calendar className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -111,7 +146,11 @@ export default function SmartClassPage() {
           {classes.map((classItem) => (
             <Card
               key={classItem.id}
-              className={classItem.status === "upcoming" ? "border-blue-600 bg-blue-50 dark:bg-blue-950/20" : ""}
+              className={
+                classItem.status === "upcoming"
+                  ? "border-blue-600 bg-blue-50 dark:bg-blue-950/20"
+                  : ""
+              }
             >
               <CardHeader>
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
@@ -148,11 +187,18 @@ export default function SmartClassPage() {
                   </div>
                 </div>
                 <div className="flex gap-2 flex-col md:flex-row">
-                  <Button className="bg-blue-600 hover:bg-blue-700 flex-1" disabled={classItem.status !== "upcoming"}>
+                  <Button
+                    className="bg-blue-600 hover:bg-blue-700 flex-1"
+                    disabled={classItem.status !== "upcoming"}
+                  >
                     <Video className="h-4 w-4 mr-2" />
                     Join Class
                   </Button>
-                  <Button variant="outline" onClick={() => setSelectedClass(classItem)} className="flex-1">
+                  <Button
+                    variant="outline"
+                    onClick={() => setSelectedClass(classItem)}
+                    className="flex-1"
+                  >
                     View Details
                   </Button>
                 </div>
@@ -166,14 +212,19 @@ export default function SmartClassPage() {
         <h2 className="text-xl font-semibold mb-4">Recorded Lectures</h2>
         <div className="grid gap-4 md:grid-cols-2">
           {recordings.map((recording) => (
-            <Card key={recording.id} className="hover:shadow-lg transition-shadow flex flex-col">
+            <Card
+              key={recording.id}
+              className="hover:shadow-lg transition-shadow flex flex-col"
+            >
               <CardHeader>
                 <div className="flex items-start gap-4">
                   <div className="h-16 w-16 rounded-lg bg-purple-100 dark:bg-purple-900 flex items-center justify-center flex-shrink-0">
                     <Video className="h-8 w-8 text-purple-600" />
                   </div>
                   <div className="flex-1">
-                    <CardTitle className="text-base">{recording.title}</CardTitle>
+                    <CardTitle className="text-base">
+                      {recording.title}
+                    </CardTitle>
                     <CardDescription>{recording.course}</CardDescription>
                     <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
                       <span>{recording.date}</span>
@@ -193,7 +244,10 @@ export default function SmartClassPage() {
         </div>
       </div>
 
-      <Dialog open={!!selectedClass} onOpenChange={() => setSelectedClass(null)}>
+      <Dialog
+        open={!!selectedClass}
+        onOpenChange={() => setSelectedClass(null)}
+      >
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>{selectedClass?.title}</DialogTitle>
@@ -203,24 +257,40 @@ export default function SmartClassPage() {
             <p className="text-sm">{selectedClass?.description}</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Lecturer</p>
-                <p className="text-base font-semibold">{selectedClass?.lecturer}</p>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Lecturer
+                </p>
+                <p className="text-base font-semibold">
+                  {selectedClass?.lecturer}
+                </p>
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Time</p>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Time
+                </p>
                 <p className="text-base font-semibold">{selectedClass?.time}</p>
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Venue</p>
-                <p className="text-base font-semibold">{selectedClass?.venue}</p>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Venue
+                </p>
+                <p className="text-base font-semibold">
+                  {selectedClass?.venue}
+                </p>
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Students</p>
-                <p className="text-base font-semibold">{selectedClass?.students}</p>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Students
+                </p>
+                <p className="text-base font-semibold">
+                  {selectedClass?.students}
+                </p>
               </div>
             </div>
             <div className="flex gap-2 flex-col md:flex-row">
-              <Button className="flex-1 bg-blue-600 hover:bg-blue-700">Join Class</Button>
+              <Button className="flex-1 bg-blue-600 hover:bg-blue-700">
+                Join Class
+              </Button>
               <Button variant="outline" onClick={() => setSelectedClass(null)}>
                 Close
               </Button>
@@ -229,5 +299,5 @@ export default function SmartClassPage() {
         </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }

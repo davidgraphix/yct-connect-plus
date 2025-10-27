@@ -1,21 +1,21 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import Link from "next/link"
-import { BookOpen, Mail, Lock, ArrowLeft } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { useState } from "react";
+import Link from "next/link";
+import { BookOpen, Mail, Lock, ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function LecturerLoginPage() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     // TODO: Implement authentication logic
-    console.log("[v0] Lecturer login:", { email, password })
-  }
+    console.log("[v0] Lecturer login:", { email, password });
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
@@ -37,15 +37,22 @@ export default function LecturerLoginPage() {
               <BookOpen className="w-8 h-8 text-purple-500" />
               <h1 className="text-2xl font-bold text-white">YCT Connect+</h1>
             </div>
-            <h2 className="text-3xl font-bold text-white mb-2">Lecturer Login</h2>
-            <p className="text-slate-400">Welcome back! Please enter your details</p>
+            <h2 className="text-3xl font-bold text-white mb-2">
+              Lecturer Login
+            </h2>
+            <p className="text-slate-400">
+              Welcome back! Please enter your details
+            </p>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Email Input */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-slate-300 mb-2"
+              >
                 Email Address
               </label>
               <div className="relative">
@@ -64,7 +71,10 @@ export default function LecturerLoginPage() {
 
             {/* Password Input */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-slate-300 mb-2">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-slate-300 mb-2"
+              >
                 Password
               </label>
               <div className="relative">
@@ -83,7 +93,10 @@ export default function LecturerLoginPage() {
 
             {/* Forgot Password */}
             <div className="text-right">
-              <a href="#" className="text-sm text-purple-400 hover:text-purple-300 transition-colors">
+              <a
+                href="#"
+                className="text-sm text-purple-400 hover:text-purple-300 transition-colors"
+              >
                 Forgot password?
               </a>
             </div>
@@ -113,5 +126,5 @@ export default function LecturerLoginPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

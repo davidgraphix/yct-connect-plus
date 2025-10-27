@@ -9,7 +9,7 @@ export default function LecturerDashboard() {
       {/* Welcome Section */}
       <div>
         <h1 className="text-3xl font-bold">Welcome back, Mr. Adewale 👋</h1>
-        <p className="text-muted-foreground">Here's an overview of your teaching activity.</p>
+        <p className="text-muted-foreground">Here&apos;s an overview of your teaching activity.</p>
       </div>
 
       {/* Quick Stats */}

@@ -14,7 +14,7 @@ export default function LearningHubPage() {
   const [levelFilter, setLevelFilter] = useState("all")
   const [semesterFilter, setSemesterFilter] = useState("all")
   const [favorites, setFavorites] = useState<number[]>([])
-  const [previewMaterial, setPreviewMaterial] = useState<any>(null)
+  const [previewMaterial, setPreviewMaterial] = useState<{ id: number; title: string; course: string; lecturer: string; date: string; type: string; downloads: number; department: string; level: string; semester: string; color: string; size: string } | null>(null)
 
   const allMaterials = [
     {
@@ -120,7 +120,7 @@ export default function LearningHubPage() {
     setFavorites((prev) => (prev.includes(id) ? prev.filter((fav) => fav !== id) : [...prev, id]))
   }
 
-  const handleDownload = (material: any) => {
+  const handleDownload = (material: { id: number; title: string; course: string; lecturer?: string; date: string; type?: string; downloads?: number; department?: string; level?: string; semester?: string; color?: string; size: string }) => {
     alert(`Downloading: ${material.title} (${material.size})`)
   }
 
@@ -299,7 +299,7 @@ export default function LearningHubPage() {
               </div>
             </div>
             <div className="flex gap-2 flex-col md:flex-row">
-              <Button className="flex-1 bg-blue-600 hover:bg-blue-700" onClick={() => handleDownload(previewMaterial)}>
+              <Button className="flex-1 bg-blue-600 hover:bg-blue-700" onClick={() => handleDownload(previewMaterial!)}>
                 <Download className="h-4 w-4 mr-2" />
                 Download
               </Button>

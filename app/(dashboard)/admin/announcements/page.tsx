@@ -1,43 +1,54 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { useAppStore } from "@/lib/store"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Megaphone, Plus, Edit, Trash2, Pin, X } from "lucide-react"
-import { useToast, ToastContainer } from "@/components/ui/toast"
+import { useState } from "react";
+import { useAppStore } from "@/lib/store";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Megaphone, Plus, Edit, Trash2, Pin, X } from "lucide-react";
+import { useToast, ToastContainer } from "@/components/ui/toast";
 
 export default function AdminAnnouncementsPage() {
-  const { announcements, addAnnouncement, updateAnnouncement, deleteAnnouncement } = useAppStore()
-  const { toasts, addToast, removeToast } = useToast()
-  const [searchTerm, setSearchTerm] = useState("")
-  const [showCreateModal, setShowCreateModal] = useState(false)
-  const [editingId, setEditingId] = useState<string | null>(null)
+  const {
+    announcements,
+    addAnnouncement,
+    updateAnnouncement,
+    deleteAnnouncement,
+  } = useAppStore();
+  const { toasts, addToast, removeToast } = useToast();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     title: "",
     message: "",
     target: "all",
     targetAudience: "",
-  })
+  });
 
   const filtered = announcements.filter(
     (a) =>
       a.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      a.message.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+      a.message.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!formData.title || !formData.message) {
       addToast({
         title: "Error",
         description: "Please fill in all required fields",
         type: "error",
-      })
-      return
+      });
+      return;
     }
 
     if (editingId) {
@@ -47,12 +58,12 @@ export default function AdminAnnouncementsPage() {
         target: formData.target as "all" | "specific",
         targetAudience: formData.targetAudience,
         updatedAt: new Date().toISOString().split("T")[0],
-      })
+      });
       addToast({
         title: "Announcement Updated",
         description: "The announcement has been updated successfully.",
         type: "success",
-      })
+      });
     } else {
       addAnnouncement({
         id: Math.random().toString(36).substr(2, 9),
@@ -64,28 +75,28 @@ export default function AdminAnnouncementsPage() {
         targetAudience: formData.targetAudience,
         createdAt: new Date().toISOString().split("T")[0],
         status: "published",
-      })
+      });
       addToast({
         title: "Announcement Created",
         description: "The announcement has been created successfully.",
         type: "success",
-      })
+      });
     }
 
-    setFormData({ title: "", message: "", target: "all", targetAudience: "" })
-    setEditingId(null)
-    setShowCreateModal(false)
-  }
+    setFormData({ title: "", message: "", target: "all", targetAudience: "" });
+    setEditingId(null);
+    setShowCreateModal(false);
+  };
   interface Announcement {
-    id: string
-    title: string
-    message: string
-    author: string
-    authorRole: string
-    target: "all" | "specific"
-    targetAudience?: string
-    createdAt: string
-    status: "published" | "draft"
+    id: string;
+    title: string;
+    message: string;
+    author: string;
+    authorRole: string;
+    target: "all" | "specific";
+    targetAudience?: string;
+    createdAt: string;
+    status: "published" | "draft";
   }
 
   const handleEdit = (announcement: Announcement) => {
@@ -94,28 +105,33 @@ export default function AdminAnnouncementsPage() {
       message: announcement.message,
       target: announcement.target,
       targetAudience: announcement.targetAudience || "",
-    })
-    setEditingId(announcement.id)
-    setShowCreateModal(true)
-  }
+    });
+    setEditingId(announcement.id);
+    setShowCreateModal(true);
+  };
 
   const handleDelete = (id: string) => {
-    deleteAnnouncement(id)
+    deleteAnnouncement(id);
     addToast({
       title: "Announcement Deleted",
       description: "The announcement has been deleted successfully.",
       type: "success",
-    })
-  }
+    });
+  };
 
   return (
     <div className="space-y-6 p-4 md:p-6">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold">Announcements</h1>
-          <p className="text-muted-foreground">Broadcast important messages to students, lecturers, or all users</p>
+          <p className="text-muted-foreground">
+            Broadcast important messages to students, lecturers, or all users
+          </p>
         </div>
-        <Button className="bg-purple-600 hover:bg-purple-700" onClick={() => setShowCreateModal(true)}>
+        <Button
+          className="bg-purple-600 hover:bg-purple-700"
+          onClick={() => setShowCreateModal(true)}
+        >
           <Plus className="h-4 w-4 mr-2" />
           Create Announcement
         </Button>
@@ -124,7 +140,9 @@ export default function AdminAnnouncementsPage() {
       <div className="grid gap-4 md:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Announcements</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Total Announcements
+            </CardTitle>
             <Megaphone className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -139,7 +157,9 @@ export default function AdminAnnouncementsPage() {
             <Megaphone className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{announcements.filter((a) => a.status === "published").length}</div>
+            <div className="text-2xl font-bold">
+              {announcements.filter((a) => a.status === "published").length}
+            </div>
             <p className="text-xs text-muted-foreground">Active</p>
           </CardContent>
         </Card>
@@ -150,7 +170,9 @@ export default function AdminAnnouncementsPage() {
             <Pin className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{announcements.filter((a) => a.status === "draft").length}</div>
+            <div className="text-2xl font-bold">
+              {announcements.filter((a) => a.status === "draft").length}
+            </div>
             <p className="text-xs text-muted-foreground">Pending</p>
           </CardContent>
         </Card>
@@ -192,10 +214,14 @@ export default function AdminAnnouncementsPage() {
                       <div className="flex items-center gap-2 mb-2">
                         <h3 className="font-semibold">{announcement.title}</h3>
                       </div>
-                      <p className="text-sm text-muted-foreground mb-3">{announcement.message}</p>
+                      <p className="text-sm text-muted-foreground mb-3">
+                        {announcement.message}
+                      </p>
                       <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
                         <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full">
-                          {announcement.target === "all" ? "All Users" : announcement.targetAudience}
+                          {announcement.target === "all"
+                            ? "All Users"
+                            : announcement.targetAudience}
                         </span>
                         <span>By {announcement.author}</span>
                         <span>{announcement.createdAt}</span>
@@ -211,7 +237,11 @@ export default function AdminAnnouncementsPage() {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Button variant="ghost" size="sm" onClick={() => handleEdit(announcement)}>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleEdit(announcement)}
+                      >
                         <Edit className="h-4 w-4" />
                       </Button>
                       <Button
@@ -235,12 +265,19 @@ export default function AdminAnnouncementsPage() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
           <Card className="w-full max-w-2xl">
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle>{editingId ? "Edit Announcement" : "Create Announcement"}</CardTitle>
+              <CardTitle>
+                {editingId ? "Edit Announcement" : "Create Announcement"}
+              </CardTitle>
               <button
                 onClick={() => {
-                  setShowCreateModal(false)
-                  setEditingId(null)
-                  setFormData({ title: "", message: "", target: "all", targetAudience: "" })
+                  setShowCreateModal(false);
+                  setEditingId(null);
+                  setFormData({
+                    title: "",
+                    message: "",
+                    target: "all",
+                    targetAudience: "",
+                  });
                 }}
                 className="text-muted-foreground hover:text-foreground"
               >
@@ -253,7 +290,9 @@ export default function AdminAnnouncementsPage() {
                   <label className="text-sm font-medium">Title</label>
                   <Input
                     value={formData.title}
-                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, title: e.target.value })
+                    }
                     placeholder="Announcement title"
                   />
                 </div>
@@ -261,7 +300,9 @@ export default function AdminAnnouncementsPage() {
                   <label className="text-sm font-medium">Message</label>
                   <textarea
                     value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, message: e.target.value })
+                    }
                     placeholder="Announcement message"
                     className="w-full px-3 py-2 border rounded-lg bg-background"
                     rows={4}
@@ -271,7 +312,9 @@ export default function AdminAnnouncementsPage() {
                   <label className="text-sm font-medium">Target Audience</label>
                   <select
                     value={formData.target}
-                    onChange={(e) => setFormData({ ...formData, target: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, target: e.target.value })
+                    }
                     className="w-full px-3 py-2 border rounded-lg bg-background"
                   >
                     <option value="all">All Users</option>
@@ -280,10 +323,17 @@ export default function AdminAnnouncementsPage() {
                 </div>
                 {formData.target === "specific" && (
                   <div>
-                    <label className="text-sm font-medium">Specific Audience</label>
+                    <label className="text-sm font-medium">
+                      Specific Audience
+                    </label>
                     <Input
                       value={formData.targetAudience}
-                      onChange={(e) => setFormData({ ...formData, targetAudience: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          targetAudience: e.target.value,
+                        })
+                      }
                       placeholder="e.g., Computer Science - Level 100"
                     />
                   </div>
@@ -293,14 +343,22 @@ export default function AdminAnnouncementsPage() {
                     type="button"
                     variant="outline"
                     onClick={() => {
-                      setShowCreateModal(false)
-                      setEditingId(null)
-                      setFormData({ title: "", message: "", target: "all", targetAudience: "" })
+                      setShowCreateModal(false);
+                      setEditingId(null);
+                      setFormData({
+                        title: "",
+                        message: "",
+                        target: "all",
+                        targetAudience: "",
+                      });
                     }}
                   >
                     Cancel
                   </Button>
-                  <Button type="submit" className="bg-purple-600 hover:bg-purple-700">
+                  <Button
+                    type="submit"
+                    className="bg-purple-600 hover:bg-purple-700"
+                  >
                     {editingId ? "Update" : "Create"} Announcement
                   </Button>
                 </div>
@@ -312,5 +370,5 @@ export default function AdminAnnouncementsPage() {
 
       <ToastContainer toasts={toasts} onRemove={removeToast} />
     </div>
-  )
+  );
 }

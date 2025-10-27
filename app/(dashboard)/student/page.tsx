@@ -1,14 +1,41 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { BookOpen, Calendar, Bell, Download, Eye, CheckCircle } from "lucide-react"
-import { useState } from "react"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import {
+  BookOpen,
+  Calendar,
+  Bell,
+  Download,
+  Eye,
+  CheckCircle,
+} from "lucide-react";
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export default function StudentDashboard() {
-  const [selectedClass, setSelectedClass] = useState<any>(null)
+  const [selectedClass, setSelectedClass] = useState<{
+    title: string;
+    code: string;
+    lecturer: string;
+    time: string;
+    venue: string;
+    students: number;
+    description: string;
+  } | null>(null);
 
   const nextClass = {
     title: "Computer Science 301 - Data Structures",
@@ -17,42 +44,99 @@ export default function StudentDashboard() {
     time: "Today at 10:00 AM",
     venue: "Room 204",
     students: 45,
-    description: "Learn fundamental data structures including arrays, linked lists, stacks, and queues.",
-  }
+    description:
+      "Learn fundamental data structures including arrays, linked lists, stacks, and queues.",
+  };
 
   const recentMaterials = [
-    { title: "Introduction to Algorithms", course: "CS 301", lecturer: "Mr. Adewale", date: "2 days ago" },
-    { title: "Database Management Systems", course: "CS 302", lecturer: "Dr. Okonkwo", date: "3 days ago" },
-    { title: "Web Development Basics", course: "CS 303", lecturer: "Mrs. Bello", date: "5 days ago" },
-  ]
+    {
+      title: "Introduction to Algorithms",
+      course: "CS 301",
+      lecturer: "Mr. Adewale",
+      date: "2 days ago",
+      type: "Lecture Note",
+      downloads: 120,
+      department: "Computer Science",
+      level: "300",
+      semester: "First",
+      color: "bg-blue-100",
+      size: "2MB",
+    },
+    {
+      title: "Database Management Systems",
+      course: "CS 302",
+      lecturer: "Dr. Okonkwo",
+      date: "3 days ago",
+      type: "Lecture Note",
+      downloads: 98,
+      department: "Computer Science",
+      level: "300",
+      semester: "First",
+      color: "bg-green-100",
+      size: "1.5MB",
+    },
+    {
+      title: "Web Development Basics",
+      course: "CS 303",
+      lecturer: "Mrs. Bello",
+      date: "5 days ago",
+      type: "Lecture Note",
+      downloads: 76,
+      department: "Computer Science",
+      level: "300",
+      semester: "First",
+      color: "bg-purple-100",
+      size: "2.2MB",
+    },
+  ];
 
-  const handleDownload = (material: any) => {
-    alert(`Downloading: ${material.title}`)
-  }
+  const handleDownload = (material: {
+    title: string;
+    course: string;
+    lecturer: string;
+    date: string;
+    type: string;
+    downloads: number;
+    department: string;
+    level: string;
+    semester: string;
+    color: string;
+    size: string;
+  }) => {
+    alert(`Downloading: ${material.title} (${material.size})`);
+  };
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl md:text-3xl font-bold">Welcome, David 👋</h1>
-        <p className="text-muted-foreground text-sm md:text-base">Here&apos;s what&apos;s happening with your courses today.</p>
+        <p className="text-muted-foreground text-sm md:text-base">
+          Here&apos;s what&apos;s happening with your courses today.
+        </p>
       </div>
 
       {/* Quick Stats */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Materials</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Total Materials
+            </CardTitle>
             <BookOpen className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">127</div>
-            <p className="text-xs text-muted-foreground">Available for download</p>
+            <p className="text-xs text-muted-foreground">
+              Available for download
+            </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Upcoming Classes</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Upcoming Classes
+            </CardTitle>
             <Calendar className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -63,18 +147,24 @@ export default function StudentDashboard() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Classes Attended</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Classes Attended
+            </CardTitle>
             <CheckCircle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">3/5</div>
-            <p className="text-xs text-muted-foreground">Today • 12/15 this week</p>
+            <p className="text-xs text-muted-foreground">
+              Today • 12/15 this week
+            </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">New Announcements</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              New Announcements
+            </CardTitle>
             <Bell className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -130,7 +220,9 @@ export default function StudentDashboard() {
             <CardHeader>
               <Download className="h-8 w-8 text-green-600 mb-2" />
               <CardTitle className="text-base">Download Materials</CardTitle>
-              <CardDescription>Access course notes and resources</CardDescription>
+              <CardDescription>
+                Access course notes and resources
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <Button variant="link" className="p-0" asChild>
@@ -170,14 +262,18 @@ export default function StudentDashboard() {
                       <BookOpen className="h-5 w-5 text-blue-600" />
                     </div>
                     <div>
-                      <p className="font-medium text-sm md:text-base">{material.title}</p>
+                      <p className="font-medium text-sm md:text-base">
+                        {material.title}
+                      </p>
                       <p className="text-sm text-muted-foreground">
                         {material.course} • {material.lecturer}
                       </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4 w-full md:w-auto">
-                    <span className="text-sm text-muted-foreground">{material.date}</span>
+                    <span className="text-sm text-muted-foreground">
+                      {material.date}
+                    </span>
                     <Button
                       size="sm"
                       variant="outline"
@@ -195,7 +291,10 @@ export default function StudentDashboard() {
         </Card>
       </div>
 
-      <Dialog open={!!selectedClass} onOpenChange={() => setSelectedClass(null)}>
+      <Dialog
+        open={!!selectedClass}
+        onOpenChange={() => setSelectedClass(null)}
+      >
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>{selectedClass?.title}</DialogTitle>
@@ -204,28 +303,46 @@ export default function StudentDashboard() {
           <div className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Lecturer</p>
-                <p className="text-base font-semibold">{selectedClass?.lecturer}</p>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Lecturer
+                </p>
+                <p className="text-base font-semibold">
+                  {selectedClass?.lecturer}
+                </p>
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Time</p>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Time
+                </p>
                 <p className="text-base font-semibold">{selectedClass?.time}</p>
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Venue</p>
-                <p className="text-base font-semibold">{selectedClass?.venue}</p>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Venue
+                </p>
+                <p className="text-base font-semibold">
+                  {selectedClass?.venue}
+                </p>
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Students</p>
-                <p className="text-base font-semibold">{selectedClass?.students}</p>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Students
+                </p>
+                <p className="text-base font-semibold">
+                  {selectedClass?.students}
+                </p>
               </div>
             </div>
             <div>
-              <p className="text-sm font-medium text-muted-foreground mb-2">Description</p>
+              <p className="text-sm font-medium text-muted-foreground mb-2">
+                Description
+              </p>
               <p className="text-sm">{selectedClass?.description}</p>
             </div>
             <div className="flex gap-2">
-              <Button className="flex-1 bg-blue-600 hover:bg-blue-700">Join Class</Button>
+              <Button className="flex-1 bg-blue-600 hover:bg-blue-700">
+                Join Class
+              </Button>
               <Button variant="outline" onClick={() => setSelectedClass(null)}>
                 Close
               </Button>
@@ -234,5 +351,5 @@ export default function StudentDashboard() {
         </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }

@@ -10,7 +10,7 @@ import { useToast, ToastContainer } from "@/components/ui/toast"
 export default function PendingItemsPage() {
   const { materials, approveMaterial, rejectMaterial } = useAppStore()
   const { toasts, addToast, removeToast } = useToast()
-  const [selectedItem, setSelectedItem] = useState<string | null>(null)
+  const [, setSelectedItem] = useState<string | null>(null)
 
   const pendingMaterials = materials.filter((m) => m.status === "pending")
 

@@ -9,6 +9,7 @@ import { User, Bell, Shield, Palette } from "lucide-react"
 import { useState } from "react"
 import { useAppStore } from "@/lib/store"
 import { useToast, ToastContainer } from "@/components/ui/toast"
+import Image from "next/image"
 
 export default function LecturerSettingsPage() {
   const { theme, setTheme } = useAppStore()
@@ -98,7 +99,7 @@ export default function LecturerSettingsPage() {
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                   <div className="h-20 w-20 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center overflow-hidden flex-shrink-0">
                     {photoUrl ? (
-                      <img src={photoUrl || "/placeholder.svg"} alt="Profile" className="h-full w-full object-cover" />
+                      <Image src={photoUrl || "/placeholder.svg"} alt="Profile" className="h-full w-full object-cover" />
                     ) : (
                       <User className="h-10 w-10 text-purple-600" />
                     )}
@@ -193,7 +194,7 @@ export default function LecturerSettingsPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-medium text-sm">Show Online Status</p>
-                    <p className="text-xs sm:text-sm text-muted-foreground">Let students see when you're online</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">Let students see when you&apos;re online</p>
                   </div>
                   <input type="checkbox" className="h-5 w-5" defaultChecked />
                 </div>

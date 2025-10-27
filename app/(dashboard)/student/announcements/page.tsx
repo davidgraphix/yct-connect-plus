@@ -10,7 +10,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 export default function StudentAnnouncementsPage() {
   const [filter, setFilter] = useState("all")
   const [searchQuery, setSearchQuery] = useState("")
-  const [selectedAnnouncement, setSelectedAnnouncement] = useState<any>(null)
+  const [selectedAnnouncement, setSelectedAnnouncement] = useState<{ id: number; title: string; publisher: string; date: string; category: string; description: string; fullContent: string; read: boolean } | null>(null)
 
   const announcements = [
     {

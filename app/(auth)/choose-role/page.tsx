@@ -1,11 +1,11 @@
-import Link from "next/link"
-import { GraduationCap, BookOpen, ArrowLeft } from "lucide-react"
+import Link from "next/link";
+import { GraduationCap, BookOpen, ArrowLeft } from "lucide-react";
 
 export default function ChooseRolePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
       <div className="w-full max-w-4xl">
-          {/* Back Button */}
+        {/* Back Button */}
         <Link
           href="/"
           className="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors"
@@ -19,8 +19,12 @@ export default function ChooseRolePage() {
             <GraduationCap className="w-10 h-10 text-white" />
             <h1 className="text-3xl font-bold text-white">YCT Connect+</h1>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Select Your Role</h2>
-          <p className="text-slate-300 text-lg">Continue as a student or lecturer to access your dashboard</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Select Your Role
+          </h2>
+          <p className="text-slate-300 text-lg">
+            Continue as a student or lecturer to access your dashboard
+          </p>
         </div>
 
         {/* Role Cards */}
@@ -35,8 +39,12 @@ export default function ChooseRolePage() {
               <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-white/20 transition-colors">
                 <GraduationCap className="w-10 h-10 text-white" />
               </div>
-              <h3 className="text-3xl font-bold text-white mb-2">I&apos;m a Student</h3>
-              <p className="text-blue-100">Access course materials, timetables, and announcements</p>
+              <h3 className="text-3xl font-bold text-white mb-2">
+                I&apos;m a Student
+              </h3>
+              <p className="text-blue-100">
+                Access course materials, timetables, and announcements
+              </p>
             </div>
           </Link>
 
@@ -50,8 +58,12 @@ export default function ChooseRolePage() {
               <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-white/10 transition-colors">
                 <BookOpen className="w-10 h-10 text-white" />
               </div>
-              <h3 className="text-3xl font-bold text-white mb-2">I&apos;m a Lecturer</h3>
-              <p className="text-slate-300">Upload materials, manage courses, and post announcements</p>
+              <h3 className="text-3xl font-bold text-white mb-2">
+                I&apos;m a Lecturer
+              </h3>
+              <p className="text-slate-300">
+                Upload materials, manage courses, and post announcements
+              </p>
             </div>
           </Link>
         </div>
@@ -67,5 +79,5 @@ export default function ChooseRolePage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

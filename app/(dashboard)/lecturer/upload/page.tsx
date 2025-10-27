@@ -44,9 +44,9 @@ export default function UploadMaterialsPage() {
   ])
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+  const [, setPreviewUrl] = useState<string | null>(null)
   const [isPreviewOpen, setIsPreviewOpen] = useState(false)
-  const [previewMaterial, setPreviewMaterial] = useState<any>(null)
+  const [previewMaterial, setPreviewMaterial] = useState<{ id: number; title: string; course: string; date: string; status: string; fileName: string; size: string } | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,7 +102,7 @@ export default function UploadMaterialsPage() {
     setMaterials(materials.filter((m) => m.id !== id))
   }
 
-  const handlePreviewMaterial = (material: any) => {
+  const handlePreviewMaterial = (material: { id: number; title: string; course: string; date: string; status: string; fileName: string; size: string }) => {
     setPreviewMaterial(material)
     setIsPreviewOpen(true)
   }

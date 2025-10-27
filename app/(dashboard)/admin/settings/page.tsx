@@ -9,6 +9,7 @@ import { Settings, Bell, Shield, Database, Key } from "lucide-react"
 import { useState } from "react"
 import { useAppStore } from "@/lib/store"
 import { useToast, ToastContainer } from "@/components/ui/toast"
+import Image from "next/image"
 
 export default function AdminSettingsPage() {
   const { platformName, setPlatformName, logoUrl, setLogoUrl, theme, setTheme } = useAppStore()
@@ -104,7 +105,7 @@ export default function AdminSettingsPage() {
                   <div className="flex items-center gap-4">
                     <div className="h-16 w-16 rounded-lg bg-muted flex items-center justify-center overflow-hidden">
                       {logoUrl ? (
-                        <img src={logoUrl || "/placeholder.svg"} alt="Logo" className="h-full w-full object-cover" />
+                        <Image src={logoUrl || "/placeholder.svg"} alt="Logo" className="h-full w-full object-cover" />
                       ) : (
                         <Settings className="h-8 w-8 text-muted-foreground" />
                       )}
@@ -127,7 +128,7 @@ export default function AdminSettingsPage() {
                   <label className="text-sm font-medium">Theme</label>
                   <select
                     value={formData.theme}
-                    onChange={(e) => setFormData({ ...formData, theme: e.target.value })}
+                    onChange={(e) => setFormData({ ...formData, theme: e.target.value as "light" | "dark" })}
                     className="w-full px-4 py-2 border rounded-lg bg-background"
                   >
                     <option value="light">Light</option>

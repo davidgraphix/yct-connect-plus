@@ -10,7 +10,18 @@ import { useState } from "react"
 
 export default function MyClassesPage() {
   const [isManageDialogOpen, setIsManageDialogOpen] = useState(false)
-  const [selectedClass, setSelectedClass] = useState<any>(null)
+  const [selectedClass, setSelectedClass] = useState<{
+    code: string
+    title: string
+    level: string
+    department: string
+    students: number
+    nextClass: string
+    venue: string
+    materials: number
+    studentList: { id: number; name: string; matric: string; attendance: string }[]
+    timetable: { day: string; time: string; venue: string }[]
+  } | null>(null)
   const [activeTab, setActiveTab] = useState<"students" | "materials" | "timetable">("students")
 
   const classes = [
@@ -71,7 +82,18 @@ export default function MyClassesPage() {
     },
   ]
 
-  const handleManageClass = (course: any) => {
+  const handleManageClass = (course: {
+    code: string
+    title: string
+    level: string
+    department: string
+    students: number
+    nextClass: string
+    venue: string
+    materials: number
+    studentList: { id: number; name: string; matric: string; attendance: string }[]
+    timetable: { day: string; time: string; venue: string }[]
+  }) => {
     setSelectedClass(course)
     setIsManageDialogOpen(true)
     setActiveTab("students")
@@ -267,7 +289,7 @@ export default function MyClassesPage() {
                         </tr>
                       </thead>
                       <tbody className="divide-y">
-                        {selectedClass.studentList.map((student: any) => (
+                        {selectedClass.studentList.map((student: { id: number; name: string; matric: string; attendance: string }) => (
                           <tr key={student.id} className="hover:bg-muted/30">
                             <td className="p-2 sm:p-3 text-xs sm:text-sm">{student.name}</td>
                             <td className="p-2 sm:p-3 text-xs sm:text-sm text-muted-foreground">{student.matric}</td>
@@ -318,7 +340,7 @@ export default function MyClassesPage() {
                 <div className="space-y-4">
                   <h3 className="font-semibold text-sm sm:text-base">Class Schedule</h3>
                   <div className="space-y-3">
-                    {selectedClass.timetable.map((schedule: any, idx: number) => (
+                    {selectedClass.timetable.map((schedule: {day: string; time: string; venue: string}, idx: number) => (
                       <Card key={idx}>
                         <CardContent className="p-3 sm:p-4">
                           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
