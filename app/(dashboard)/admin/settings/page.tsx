@@ -94,7 +94,7 @@ export default function AdminSettingsPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Left Shoulder Name</label>
+                  <label className="text-sm font-medium">Admin Name</label>
                   <Input
                     value={formData.platformName}
                     onChange={(e) => setFormData({ ...formData, platformName: e.target.value })}
