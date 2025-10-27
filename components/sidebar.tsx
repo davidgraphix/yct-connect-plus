@@ -23,7 +23,7 @@ const sidebarConfig = {
     { href: "/lecturer", label: "Dashboard", icon: "🏠" },
     { href: "/lecturer/upload", label: "Upload Material", icon: "📤" },
     { href: "/lecturer/announcements", label: "Announcements", icon: "📢" },
-    { href: "/lecturer/classes", label: "My Classes", icon: "🗓️" },
+    { href: "/lecturer/my-classes", label: "My Classes", icon: "🗓️" },
     { href: "/lecturer/analytics", label: "Analytics", icon: "📊" },
     { href: "/lecturer/settings", label: "Settings", icon: "⚙️" },
   ],
