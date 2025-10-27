@@ -81,7 +81,6 @@ export default function LandingPage() {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
-              
               <Link
                 href="#features"
                 className="text-sm font-medium text-foreground/70 cursor-pointer hover:text-foreground transition-colors"
@@ -527,8 +526,8 @@ export default function LandingPage() {
       <section id="why-choose" className="py-16 sm:py-24 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            <motion.div 
-            initial={{ x: -150, opacity: 0 }}
+            <motion.div
+              initial={{ x: -150, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               transition={{
                 type: "spring",
@@ -538,7 +537,8 @@ export default function LandingPage() {
                 delay: 0.1,
               }}
               viewport={{ once: false, amount: 0.3 }}
-            className="space-y-6">
+              className="space-y-6"
+            >
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
                 Why Choose YCT Connect+?
               </h2>
