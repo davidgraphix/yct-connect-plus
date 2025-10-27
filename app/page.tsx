@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
@@ -108,7 +107,7 @@ export default function LandingPage() {
               <Button
                 variant="ghost"
                 asChild
-                className="text-foreground/70 cursor-pointer hover:text-foreground"
+                className="text-foreground/70 cursor-pointer bg-blue-600 text-white border  hover:bg-teal-500 hover:text-black  transition-all duration-300"
               >
                 <Link href="/choose-role">Login</Link>
               </Button>
@@ -162,7 +161,7 @@ export default function LandingPage() {
                 <Button
                   variant="outline"
                   asChild
-                  className="flex-1 bg-transparent"
+                  className="flex-1 text-foreground/70 cursor-pointer bg-blue-600 text-white border  hover:bg-teal-500 hover:text-black  transition-all duration-300"
                 >
                   <Link href="/choose-role">Login</Link>
                 </Button>
@@ -422,12 +421,10 @@ export default function LandingPage() {
                     {step.number}
                   </div>
                   <div className="w-55 h-55 flex items-center justify-center ">
-                    <Image
+                    <img
                       src={step.image || "/placeholder.svg"}
                       alt={step.title}
                       className="w-full h-full object-contain"
-                      width={500}
-                      height={300}
                     />
                   </div>
                   <h3 className="text-xl font-bold">{step.title}</h3>
@@ -463,12 +460,10 @@ export default function LandingPage() {
               className="relative hidden lg:block"
             >
               <div className="absolute inset-0"></div>
-              <Image
+              <img
                 src="/yct-dashboard-pic.png"
                 alt="Dashboard preview"
                 className="relative w-full h-auto"
-                width={500}
-                height={300}
               />
             </motion.div>
 
@@ -579,12 +574,10 @@ export default function LandingPage() {
               className="relative flex justify-center"
             >
               <div className="absolute inset-0  "></div>
-              <Image
+              <img
                 src="/student-pic.png"
                 alt="Student using mobile app"
                 className="relative w-full max-w-md h-auto "
-                width={500}
-                height={300}
               />
             </motion.div>
           </div>
@@ -606,7 +599,7 @@ export default function LandingPage() {
             className="bg-white hover:bg-gray-100 text-blue-600 font-semibold group"
             asChild
           >
-            <Link href="/choose-role" className="flex items-center gap-2">
+            <Link href="/choose-role" className="flex items-center gap-2 ">
               Get Started Now
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Link>
