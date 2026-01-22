@@ -23,12 +23,12 @@ export default function ChooseRolePage() {
             Select Your Role
           </h2>
           <p className="text-slate-300 text-lg">
-            Continue as a student or lecturer to access your dashboard
+            Continue as a student  to access your dashboard
           </p>
         </div>
 
         {/* Role Cards */}
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
+        <div className="grid md:grid-cols-2 gap-6 mb-8 translate-x-50">
           {/* Student Card */}
           <Link
             href="/student/login"
@@ -49,7 +49,7 @@ export default function ChooseRolePage() {
           </Link>
 
           {/* Lecturer Card */}
-          <Link
+          {/* <Link
             href="/lecturer/login"
             className="group relative bg-gradient-to-br from-slate-700 to-slate-800 rounded-2xl p-8 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/50 border border-slate-600"
           >
@@ -65,7 +65,7 @@ export default function ChooseRolePage() {
                 Upload materials, manage courses, and post announcements
               </p>
             </div>
-          </Link>
+          </Link> */}
         </div>
 
         {/* Footer Text */}
