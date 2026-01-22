@@ -59,7 +59,7 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="min-h-screen ">
+    <div className="min-h-screen overflow-x-hidden">
       {/* Navigation Bar */}
       <nav className="sticky top-0 z-50 bg-gradient-to-r from-blue-600/20 to-teal-500/20 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         {/* <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-teal-500/20 blur-2xl"></div>
