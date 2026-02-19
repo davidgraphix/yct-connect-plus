@@ -44,7 +44,7 @@ const handleSubmit = async (e: React.FormEvent) => {
     alert("Login successful");
 
     // ✅ REDIRECT
-    window.location.href = "/student/dashboard";
+    window.location.href = "/student";
 
   } catch (err) {
     console.error(err);

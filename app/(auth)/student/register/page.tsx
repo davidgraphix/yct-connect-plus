@@ -55,7 +55,7 @@ export default function StudentRegisterPage() {
     alert("Registration successful!")
 
     // ✅ redirect to dashboard
-    window.location.href = "/student/dashboard"
+    window.location.href = "/student"
 
   } catch (err) {
     console.error("FETCH ERROR:", err)
