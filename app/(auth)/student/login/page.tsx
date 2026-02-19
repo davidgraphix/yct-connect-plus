@@ -11,11 +11,47 @@ export default function StudentLoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: Implement authentication logic
-    console.log("[v0] Student login:", { email, password });
-  };
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  try {
+    const res = await fetch("https://localhost:7194/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data);
+      return;
+    }
+
+    console.log("LOGIN SUCCESS:", data);
+
+    // ✅ SAVE TOKEN
+    localStorage.setItem("token", data.token);
+
+    // ✅ SAVE USER INFO (optional but recommended)
+    localStorage.setItem("student", JSON.stringify(data));
+
+    alert("Login successful");
+
+    // ✅ REDIRECT
+    window.location.href = "/student/dashboard";
+
+  } catch (err) {
+    console.error(err);
+    alert("Login failed");
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">

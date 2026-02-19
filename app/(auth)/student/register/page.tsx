@@ -21,42 +21,48 @@ export default function StudentRegisterPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault()
 
- 
-    try {
- const res = await fetch("http://localhost:5092/api/auth/register", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    fullName: formData.fullName,
-    matricNo: formData.matricNo,
-    department: formData.department,
-    level: formData.level,
-    email: formData.email,
-    password: formData.password,
-  }),
-})
+  try {
+    const res = await fetch("https://localhost:7194/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fullName: formData.fullName,
+        matricNo: formData.matricNo,
+        department: formData.department,
+        level: formData.level,
+        email: formData.email,
+        password: formData.password,
+      }),
+    })
 
+    const data = await res.json()
 
-      const data = await res.json()
-
-      if (!res.ok) {
-        alert(data) // show error from API
-        return
-      }
-
-      alert("Registration successful!")
-      // Redirect to login page
-      window.location.href = "/student/login"
-    } catch (err) {
-      console.error(err)
-      alert("Something went wrong, check console")
+    if (!res.ok) {
+      alert(data)
+      return
     }
+
+    console.log("REGISTER SUCCESS:", data)
+
+    // ✅ SAVE TOKEN
+    localStorage.setItem("token", data.token)
+
+    alert("Registration successful!")
+
+    // ✅ redirect to dashboard
+    window.location.href = "/student/dashboard"
+
+  } catch (err) {
+    console.error("FETCH ERROR:", err)
+    alert("Cannot connect to server")
   }
+}
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4 py-12">
