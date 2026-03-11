@@ -25,20 +25,20 @@ export default function StudentRegisterPage() {
   e.preventDefault()
 
   try {
-    const res = await fetch("https://localhost:7194/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        fullName: formData.fullName,
-        matricNo: formData.matricNo,
-        department: formData.department,
-        level: formData.level,
-        email: formData.email,
-        password: formData.password,
-      }),
-    })
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    fullName: formData.fullName,
+    matricNo: formData.matricNo,
+    department: formData.department,
+    level: formData.level,
+    email: formData.email,
+    password: formData.password,
+  }),
+})
 
     const data = await res.json()
 
