@@ -15,7 +15,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
   try {
-    const res = await fetch("https://localhost:7194/api/auth/login", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,15 +35,14 @@ const handleSubmit = async (e: React.FormEvent) => {
 
     console.log("LOGIN SUCCESS:", data);
 
-    // ✅ SAVE TOKEN
+    // save token
     localStorage.setItem("token", data.token);
 
-    // ✅ SAVE USER INFO (optional but recommended)
+    // save student info
     localStorage.setItem("student", JSON.stringify(data));
 
     alert("Login successful");
 
-    // ✅ REDIRECT
     window.location.href = "/student";
 
   } catch (err) {
