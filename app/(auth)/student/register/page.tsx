@@ -5,6 +5,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { GraduationCap, Mail, Lock, User, Hash, Building2, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { registerStudent } from "@/lib/auth"
 
 export default function StudentRegisterPage() {
   const [formData, setFormData] = useState({
@@ -21,48 +22,29 @@ export default function StudentRegisterPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
- const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
 
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    fullName: formData.fullName,
-    matricNo: formData.matricNo,
-    department: formData.department,
-    level: formData.level,
-    email: formData.email,
-    password: formData.password,
-  }),
-})
+    try {
+      await registerStudent({
+        fullName: formData.fullName,
+        matricNo: formData.matricNo,
+        department: formData.department,
+        level: formData.level,
+        email: formData.email,
+        password: formData.password,
+      })
 
-    const data = await res.json()
+      alert("Registration successful!")
 
-    if (!res.ok) {
-      alert(data)
-      return
+      // redirect to dashboard
+      window.location.href = "/student"
+
+    } catch (error: any) {
+      console.error("REGISTER ERROR:", error)
+      alert(error.message || "Registration failed")
     }
-
-    console.log("REGISTER SUCCESS:", data)
-
-    // ✅ SAVE TOKEN
-    localStorage.setItem("token", data.token)
-
-    alert("Registration successful!")
-
-    // ✅ redirect to dashboard
-    window.location.href = "/student"
-
-  } catch (err) {
-    console.error("FETCH ERROR:", err)
-    alert("Cannot connect to server")
   }
-}
-
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4 py-12">
@@ -86,19 +68,19 @@ export default function StudentRegisterPage() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
+
             {/* Full Name */}
             <div>
-              <label htmlFor="fullName" className="block text-sm font-medium text-slate-300 mb-2">Full Name</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">Full Name</label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                 <input
-                  id="fullName"
                   name="fullName"
                   type="text"
                   value={formData.fullName}
                   onChange={handleChange}
                   placeholder="John Doe"
-                  className="w-full pl-11 pr-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="w-full pl-11 pr-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white"
                   required
                 />
               </div>
@@ -106,17 +88,16 @@ export default function StudentRegisterPage() {
 
             {/* Matric Number */}
             <div>
-              <label htmlFor="matricNo" className="block text-sm font-medium text-slate-300 mb-2">Matric Number</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">Matric Number</label>
               <div className="relative">
                 <Hash className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                 <input
-                  id="matricNo"
                   name="matricNo"
                   type="text"
                   value={formData.matricNo}
                   onChange={handleChange}
                   placeholder="YCT/2024/12345"
-                  className="w-full pl-11 pr-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="w-full pl-11 pr-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white"
                   required
                 />
               </div>
@@ -124,15 +105,14 @@ export default function StudentRegisterPage() {
 
             {/* Department */}
             <div>
-              <label htmlFor="department" className="block text-sm font-medium text-slate-300 mb-2">Department</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">Department</label>
               <div className="relative">
                 <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                 <select
-                  id="department"
                   name="department"
                   value={formData.department}
                   onChange={handleChange}
-                  className="w-full pl-11 pr-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all appearance-none"
+                  className="w-full pl-11 pr-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white"
                   required
                 >
                   <option value="">Select Department</option>
@@ -147,13 +127,12 @@ export default function StudentRegisterPage() {
 
             {/* Level */}
             <div>
-              <label htmlFor="level" className="block text-sm font-medium text-slate-300 mb-2">Level</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">Level</label>
               <select
-                id="level"
                 name="level"
                 value={formData.level}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white"
                 required
               >
                 <option value="">Select Level</option>
@@ -166,17 +145,16 @@ export default function StudentRegisterPage() {
 
             {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">Email Address</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">Email Address</label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                 <input
-                  id="email"
                   name="email"
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="student@yabatech.edu.ng"
-                  className="w-full pl-11 pr-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="w-full pl-11 pr-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white"
                   required
                 />
               </div>
@@ -184,31 +162,29 @@ export default function StudentRegisterPage() {
 
             {/* Password */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-slate-300 mb-2">Password</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">Password</label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                 <input
-                  id="password"
                   name="password"
                   type="password"
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Create a strong password"
-                  className="w-full pl-11 pr-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="w-full pl-11 pr-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white"
                   required
                 />
               </div>
             </div>
 
-          
-
             <Button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-all shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg"
               size="lg"
             >
               Register as Student
             </Button>
+
           </form>
 
           <div className="mt-6 text-center">
@@ -216,7 +192,7 @@ export default function StudentRegisterPage() {
               Already have an account?{" "}
               <Link
                 href="/student/login"
-                className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
+                className="text-blue-400 hover:text-blue-300 font-medium"
               >
                 Login here
               </Link>
