@@ -6,50 +6,26 @@ import { useState } from "react";
 import Link from "next/link";
 import { GraduationCap, Mail, Lock, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { loginStudent } from "@/lib/auth"
 
 export default function StudentLoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
 const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  e.preventDefault()
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
+    await loginStudent(email, password)
 
-    const data = await res.json();
+    alert("Login successful")
 
-    if (!res.ok) {
-      alert(data);
-      return;
-    }
+    window.location.href = "/student"
 
-    console.log("LOGIN SUCCESS:", data);
-
-    // save token
-    localStorage.setItem("token", data.token);
-
-    // save student info
-    localStorage.setItem("student", JSON.stringify(data));
-
-    alert("Login successful");
-
-    window.location.href = "/student";
-
-  } catch (err) {
-    console.error(err);
-    alert("Login failed");
+  } catch (error: any) {
+    alert(error.message)
   }
-};
+}
 
 
   return (
