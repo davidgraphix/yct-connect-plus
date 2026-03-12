@@ -3,11 +3,24 @@
 import type React from "react"
 import { useState } from "react"
 import Link from "next/link"
-import { GraduationCap, Mail, Lock, User, Hash, Building2, ArrowLeft } from "lucide-react"
+import {
+  GraduationCap,
+  Mail,
+  Lock,
+  User,
+  Hash,
+  Building2,
+  ArrowLeft,
+  Loader2,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { registerStudent } from "@/lib/auth"
+import { toast } from "sonner"
 
 export default function StudentRegisterPage() {
+
+  const [loading, setLoading] = useState(false)
+
   const [formData, setFormData] = useState({
     fullName: "",
     matricNo: "",
@@ -18,12 +31,18 @@ export default function StudentRegisterPage() {
     confirmPassword: "",
   })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (loading) return
+
+    setLoading(true)
 
     try {
       await registerStudent({
@@ -35,20 +54,25 @@ export default function StudentRegisterPage() {
         password: formData.password,
       })
 
-      alert("Registration successful!")
+      toast.success("Registration successful! Redirecting...")
 
-      // redirect to dashboard
-      window.location.href = "/student"
+      setTimeout(() => {
+        window.location.href = "/student"
+      }, 1500)
 
     } catch (error: any) {
       console.error("REGISTER ERROR:", error)
-      alert(error.message || "Registration failed")
+
+      toast.error(error.message || "Registration failed")
+
+      setLoading(false)
     }
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4 py-12">
       <div className="w-full max-w-md">
+
         <Link
           href="/choose-role"
           className="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors"
@@ -58,22 +82,33 @@ export default function StudentRegisterPage() {
         </Link>
 
         <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-8 shadow-2xl">
+
           <div className="text-center mb-8">
             <div className="flex items-center justify-center gap-2 mb-4">
               <GraduationCap className="w-8 h-8 text-blue-500" />
               <h1 className="text-2xl font-bold text-white">YCT Connect+</h1>
             </div>
-            <h2 className="text-3xl font-bold text-white mb-2">Student Registration</h2>
-            <p className="text-slate-400">Create your student account</p>
+
+            <h2 className="text-3xl font-bold text-white mb-2">
+              Student Registration
+            </h2>
+
+            <p className="text-slate-400">
+              Create your student account
+            </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
 
             {/* Full Name */}
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">Full Name</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">
+                Full Name
+              </label>
+
               <div className="relative">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+
                 <input
                   name="fullName"
                   type="text"
@@ -88,9 +123,13 @@ export default function StudentRegisterPage() {
 
             {/* Matric Number */}
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">Matric Number</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">
+                Matric Number
+              </label>
+
               <div className="relative">
                 <Hash className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+
                 <input
                   name="matricNo"
                   type="text"
@@ -105,9 +144,13 @@ export default function StudentRegisterPage() {
 
             {/* Department */}
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">Department</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">
+                Department
+              </label>
+
               <div className="relative">
                 <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+
                 <select
                   name="department"
                   value={formData.department}
@@ -127,7 +170,10 @@ export default function StudentRegisterPage() {
 
             {/* Level */}
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">Level</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">
+                Level
+              </label>
+
               <select
                 name="level"
                 value={formData.level}
@@ -145,9 +191,13 @@ export default function StudentRegisterPage() {
 
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">Email Address</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">
+                Email Address
+              </label>
+
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+
                 <input
                   name="email"
                   type="email"
@@ -162,9 +212,13 @@ export default function StudentRegisterPage() {
 
             {/* Password */}
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">Password</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">
+                Password
+              </label>
+
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+
                 <input
                   name="password"
                   type="password"
@@ -177,12 +231,21 @@ export default function StudentRegisterPage() {
               </div>
             </div>
 
+            {/* Register Button */}
             <Button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg"
+              disabled={loading}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg flex items-center justify-center gap-2"
               size="lg"
             >
-              Register as Student
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Registering...
+                </>
+              ) : (
+                "Register as Student"
+              )}
             </Button>
 
           </form>
@@ -198,6 +261,7 @@ export default function StudentRegisterPage() {
               </Link>
             </p>
           </div>
+
         </div>
       </div>
     </div>
