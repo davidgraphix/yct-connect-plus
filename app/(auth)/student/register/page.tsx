@@ -3,6 +3,7 @@
 import type React from "react";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   GraduationCap,
   Mail,
@@ -18,6 +19,8 @@ import { registerStudent } from "@/lib/auth";
 import { toast } from "sonner";
 
 export default function StudentRegisterPage() {
+  const router = useRouter();
+
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -56,8 +59,9 @@ export default function StudentRegisterPage() {
       toast.success("Registration successful! Please login to continue.");
 
       setTimeout(() => {
-        window.location.href = "/student/login";
+        router.push("/student/login");
       }, 1500);
+
     } catch (error: any) {
       console.error("REGISTER ERROR:", error);
 
