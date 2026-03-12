@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState } from "react"
-import Link from "next/link"
+import type React from "react";
+import { useState } from "react";
+import Link from "next/link";
 import {
   GraduationCap,
   Mail,
@@ -12,14 +12,13 @@ import {
   Building2,
   ArrowLeft,
   Loader2,
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { registerStudent } from "@/lib/auth"
-import { toast } from "sonner"
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { registerStudent } from "@/lib/auth";
+import { toast } from "sonner";
 
 export default function StudentRegisterPage() {
-
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -29,20 +28,20 @@ export default function StudentRegisterPage() {
     email: "",
     password: "",
     confirmPassword: "",
-  })
+  });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (loading) return
+    if (loading) return;
 
-    setLoading(true)
+    setLoading(true);
 
     try {
       await registerStudent({
@@ -52,27 +51,25 @@ export default function StudentRegisterPage() {
         level: formData.level,
         email: formData.email,
         password: formData.password,
-      })
+      });
 
-      toast.success("Registration successful! Redirecting...")
+      toast.success("Registration successful! Please login to continue.");
 
       setTimeout(() => {
-        window.location.href = "/student"
-      }, 1500)
-
+        window.location.href = "/student/login";
+      }, 1500);
     } catch (error: any) {
-      console.error("REGISTER ERROR:", error)
+      console.error("REGISTER ERROR:", error);
 
-      toast.error(error.message || "Registration failed")
+      toast.error(error.message || "Registration failed");
 
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4 py-12">
       <div className="w-full max-w-md">
-
         <Link
           href="/choose-role"
           className="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors"
@@ -82,7 +79,6 @@ export default function StudentRegisterPage() {
         </Link>
 
         <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-8 shadow-2xl">
-
           <div className="text-center mb-8">
             <div className="flex items-center justify-center gap-2 mb-4">
               <GraduationCap className="w-8 h-8 text-blue-500" />
@@ -93,13 +89,10 @@ export default function StudentRegisterPage() {
               Student Registration
             </h2>
 
-            <p className="text-slate-400">
-              Create your student account
-            </p>
+            <p className="text-slate-400">Create your student account</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-
             {/* Full Name */}
             <div>
               <label className="block text-sm font-medium text-slate-300 mb-2">
@@ -161,9 +154,13 @@ export default function StudentRegisterPage() {
                   <option value="">Select Department</option>
                   <option value="Computer Science">Computer Science</option>
                   <option value="Engineering">Engineering</option>
-                  <option value="Business Administration">Business Administration</option>
+                  <option value="Business Administration">
+                    Business Administration
+                  </option>
                   <option value="Mass Communication">Mass Communication</option>
-                  <option value="Science Laboratory Technology">Science Laboratory Technology</option>
+                  <option value="Science Laboratory Technology">
+                    Science Laboratory Technology
+                  </option>
                 </select>
               </div>
             </div>
@@ -247,7 +244,6 @@ export default function StudentRegisterPage() {
                 "Register as Student"
               )}
             </Button>
-
           </form>
 
           <div className="mt-6 text-center">
@@ -261,9 +257,8 @@ export default function StudentRegisterPage() {
               </Link>
             </p>
           </div>
-
         </div>
       </div>
     </div>
-  )
+  );
 }
